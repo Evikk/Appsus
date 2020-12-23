@@ -1,9 +1,13 @@
-
 @import '../../lib/animate.css';
+
 /* Basics */
 
 @import './basics/base.css';
 
 /* Components: */
+
+
 /* @import './cmps/AppHeader.css'; */
 
+@import '/apps/Keep/assets/css/note-create.css';
+@import '/apps/Keep/assets/css/notes.css';

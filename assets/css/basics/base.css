@@ -1,17 +1,26 @@
-html, body, div, header, h1 {
+* {
+    box-sizing: border-box;
+}
+
+html,
+body,
+div,
+header,
+h1 {
     margin: 0;
     padding: 0;
 }
 
 body {
-    background-color: rgb(62, 161, 194);
+    background-color: rgb(241, 251, 255);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 a {
     text-decoration: none;
-    color: whitesmoke;
+    color: rgb(7, 6, 6);
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -31,10 +40,6 @@ footer {
     margin-top: 5px;
 }
 
-.debug *{
-    outline: 1px solid orange;
-}
-
 .small {
     font-size: 0.8em;
 }
@@ -42,14 +47,3 @@ footer {
 .center {
     text-align: center;
 }
-
-.btn {
-    background-color: goldenrod;
-    padding: 5px;
-    margin: 5px;
-}
-
-.user-msg {
-    background-color: gray;
-}
-
