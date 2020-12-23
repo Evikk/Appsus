@@ -1,8 +1,11 @@
-
+/* Libs */
 @import '../../lib/animate.css';
-/* Basics */
 
+/* Basics */
 @import './basics/base.css';
+
+/* Apps */
+@import '../../apps/Mail/assets/css/mail-app.css'
 
 /* Components: */
 /* @import './cmps/AppHeader.css'; */
