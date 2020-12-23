@@ -1,14 +1,14 @@
 import { About } from './pages/About.jsx';
 import { Home } from './pages/Home.jsx';
-import { KeepApp } from './apps/Keep/KeepApp.jsx';
 import { MailApp } from './apps/Mail/MailApp.jsx';
 import { AppHeader } from './cmps/AppHeader.jsx';
+import { KeepApp } from './apps/Keep/pages/KeepApp.jsx';
 
 
 const Router = ReactRouterDOM.HashRouter;
 const { Route, Switch } = ReactRouterDOM;
 
-// Simple React Component
+
 export class RootCmp extends React.Component {
 
     render() {

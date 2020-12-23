@@ -2,11 +2,17 @@
 @import '../../lib/animate.css';
 
 /* Basics */
+
+/* Basics */
 @import './basics/base.css';
 
 /* Apps */
-@import '../../apps/Mail/assets/css/mail-app.css'
+@import '../../apps/Mail/assets/css/mail-app.css';
 
 /* Components: */
+
+
 /* @import './cmps/AppHeader.css'; */
 
+@import '/apps/Keep/assets/css/note-create.css';
+@import '/apps/Keep/assets/css/notes.css';
