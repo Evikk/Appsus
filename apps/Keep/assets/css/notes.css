@@ -71,7 +71,7 @@
     }
     
     .note.txt {
-        background-color: rgb(236, 219, 219);
+        /* background-color: rgb(236, 219, 219); */
         text-align: center;
     }
     
@@ -84,13 +84,8 @@
         width: 100%;
     }
     
-    .note.video * {
-        /* margin: 0; */
-        /* padding: 2em; */
-        border: none;
-    }
-    
     .note.video iframe {
+        border: none;
         width: 100%;
         padding-top: 0.5em;
     }

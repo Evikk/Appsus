@@ -18,8 +18,10 @@ export class KeepApp extends React.Component {
     }
 
     loadNotes = () => {
+        let notesCopy = this.state.notes
         keepService.query().then(notes => {
-            this.setState({ notes }, () => console.log(this.state))
+            notesCopy = notes
+            this.setState({ notes: notesCopy })
         })
     }
 
@@ -33,7 +35,14 @@ export class KeepApp extends React.Component {
         const editCopy = { ...this.state.edit }
         editCopy.action = action
         editCopy.note = note
-        this.setState({ edit:editCopy })
+        this.setState({ edit: editCopy })
+    }
+
+    setChanges = () => {
+        const editCopy = { ...this.state.edit }
+        editCopy.note = null
+        this.setState({ edit: editCopy })
+        this.loadNotes()
     }
 
     render() {
@@ -42,7 +51,7 @@ export class KeepApp extends React.Component {
             <section className="keep-app">
                 <NoteCreate onAddNote={this.onAddNote} />
                 <NoteList notes={this.state.notes} onEdit={this.onEdit} />
-                {this.state.edit.note&&<NoteEdit edit={this.state.edit} />}
+                {this.state.edit.note && <NoteEdit edit={this.state.edit} setChanges={this.setChanges} />}
             </section>
         )
     }

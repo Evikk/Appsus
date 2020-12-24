@@ -1,13 +1,21 @@
 .edit-colors {
+    /* position: absolute;
+    bottom: -2;
+     left: ; */
+    /* opacity: 0; */
+}
+
+.opacity1 {
+    opacity: 1;
+}
+
+.edit-colors>* {
     display: inline-block;
     height: 20px;
     width: 20px;
     margin: 2px;
-    /* background-color: cornflowerblue; */
+    background-color: cornflowerblue;
     border-radius: 50%;
-    border: 1px solid #00000026;
-}
-
-.edit-colors> {
-    display: block;
+    border: 1px solid #00000041;
+    cursor: pointer;
 }

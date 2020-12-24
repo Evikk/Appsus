@@ -5,7 +5,7 @@ export function NoteTxt({ note,onEdit }) {
 
 
     return (
-        <div className={`note ${note.type}`}>
+        <div className={`note ${note.type}`} style={{backgroundColor:note.style.backgroundColor}}>
             <i className="fa fa-font"></i>
             {note.info.label && <h5 className="note-label">{note.info.label}</h5>}
             <p>{note.info.txt}</p>

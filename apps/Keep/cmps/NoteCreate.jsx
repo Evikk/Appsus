@@ -46,7 +46,7 @@ export class NoteCreate extends React.Component {
         const { value } = ev.target
         const currNoteCopy = { ...this.state.currNote }
         currNoteCopy[ev.target.name] = value
-        this.setState({ currNote: currNoteCopy },console.log(this.state))
+        this.setState({ currNote: currNoteCopy })
     }
 
     onAddNote = () => {

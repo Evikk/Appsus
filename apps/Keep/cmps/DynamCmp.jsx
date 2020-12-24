@@ -9,7 +9,7 @@ export function DynamCmp({ note,onEdit }) {
 
     switch (note.type) {
         case 'txt':
-            return <NoteTxt note={note} onEdit={onEdit} />
+            return <NoteTxt note={note} onEdit={onEdit}/>
         case 'img':
             return <NoteImg note={note} onEdit={onEdit} />
         case 'video':

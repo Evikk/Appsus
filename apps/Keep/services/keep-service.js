@@ -2,8 +2,9 @@ import { utilService } from '../../../services/utilService.js'
 import { storageService } from '../../../services/storageService.js'
 export const keepService = {
     query,
-    addNote
-
+    addNote,
+    deleteNote,
+    cloneNote
 }
 
 window.keep = keepService
@@ -37,7 +38,7 @@ function addNote(note) {
         updatedAt: Date.now(),
         info: {},
         style: {
-            backgroundColor: '#00d',
+            backgroundColor: 'white',
             color: 'red',
             fontSize: 15,
             fontFamily: ''
@@ -80,6 +81,28 @@ function addNote(note) {
 
 }
 
+function deleteNote(noteId) {
+    findNoteIdxById(noteId).then(noteIdx => {
+        gNotes.splice(noteIdx, 1)
+        storageService.saveToStorage(STORAGE_KEY, gNotes)
+    })
+}
+
+function cloneNote(noteId) {
+    findNoteIdxById(noteId).then(noteIdx => {
+        let cloneNote = JSON.stringify(gNotes[noteIdx])
+        cloneNote = JSON.parse(cloneNote)
+        cloneNote.id = utilService.makeId()
+        gNotes.splice(noteIdx, 0, cloneNote)
+        storageService.saveToStorage(STORAGE_KEY, gNotes)
+    })
+}
+
+function findNoteIdxById(id) {
+    var noteIdx = gNotes.findIndex(note => note.id === id)
+    return Promise.resolve(noteIdx)
+}
+
 
 function demoNotes() {
 
@@ -95,7 +118,7 @@ function demoNotes() {
                 txt: 'Fullstack Me Baby!'
             },
             style: {
-                backgroundColor: '#00d',
+                backgroundColor: 'white',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''
@@ -113,7 +136,7 @@ function demoNotes() {
                 title: 'Me playing Mi'
             },
             style: {
-                backgroundColor: '#00d',
+                backgroundColor: 'white',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''
