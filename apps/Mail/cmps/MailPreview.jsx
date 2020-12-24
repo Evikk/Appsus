@@ -5,33 +5,54 @@ export function MailPreview({ mail, onRemoveMail, onStarMail }) {
         return mail.isRead ? "" : "unread";
     }
     function getStarredStatus() {
-        return mail.isStarred ? 'starred' : ''
+        return mail.isStarred ? "starred" : "";
     }
     function getTime() {
-        if (new Date().toLocaleDateString() === mail.sentAt.toLocaleDateString()) return mail.sentAt.toLocaleTimeString().replace(/:\d+ /, " ")
-        return mail.sentAt.toLocaleDateString()
+        if (
+            new Date().toLocaleDateString() === mail.sentAt.toLocaleDateString()
+        )
+            return mail.sentAt.toLocaleTimeString().replace(/:\d+ /, " ");
+        return mail.sentAt.toLocaleDateString();
     }
 
     return (
         <div className="mail-preview-container">
-            <i className="fa fa-trash-o md to-trash" onClick={()=>{onRemoveMail(mail.id)}}></i>
-            <i className={`fa fa-star md ${getStarredStatus()}`} onClick={()=>{onStarMail(mail.id)}}></i>
+            <i
+                className="fa fa-trash-o md to-trash"
+                onClick={() => {
+                    onRemoveMail(mail.id);
+                }}
+            ></i>
+            <i
+                className={`fa fa-star md ${getStarredStatus()}`}
+                onClick={() => {
+                    onStarMail(mail.id);
+                }}
+            ></i>
             <Link to={`/mail/${mail.id}`}>
                 <div className={`mail-preview-details ${getReadStatus()}`}>
                     <div className="preview-sender">
-                        <span>{mail.sender}</span>
+                        <span>
+                            {mail.sender}{" "}
+                            {mail.sendTo && !mail.isDraft &&(
+                                <span className="font-regular">
+                                    To: {mail.sendTo}
+                                </span>
+                            )}
+                            {mail.isDraft &&
+                                <span className="red">
+                                    Draft
+                                </span>
+                            }
+                        </span>
                     </div>
                     <div className="preview-main">
-                        <span className="preview-subject">
-                            {mail.subject}
-                        </span>
+                        <span className="preview-subject">{mail.subject}</span>
                         <span> - </span>
                         <span className="preview-body">{mail.body}</span>
                     </div>
                     <div className="preview-mail-sent">
-                        <span>
-                            {getTime()}
-                        </span>
+                        <span>{getTime()}</span>
                     </div>
                 </div>
             </Link>

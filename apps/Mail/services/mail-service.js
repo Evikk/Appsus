@@ -18,6 +18,7 @@ function _createMails() {
             {
                 id: '123',
                 sender: "Avi",
+                senderAddress: "aviHakarish32@hotmail.com",
                 subject: "Hi",
                 body: `What's up?`,
                 isRead: false,
