@@ -13,23 +13,40 @@
         position: relative;
         min-width: 18em;
         max-width: 19em;
-        box-shadow: 1.5px 3px 5px #7d7f80;
+        box-shadow: 0 3px 8px 3px #7d7f8093;
         text-align: center;
-        border: rgba(0, 0, 0, 0.411) solid 1px;
         border-radius: 8px;
         color: rgb(0, 0, 0);
-        padding: 0 1.3em;
-        padding-bottom: 1.2em;
-        transition: 0.4s;
-        cursor: pointer;
+        padding: 0 1.2em;
+        transition: 0.2s;
     }
     
     .note:hover {
-        transform: scale(1.03);
+        box-shadow: 0 5px 11px 4.5px #7d7f80ab;
     }
     
-    .note i {
+    .options-bar button {
+        background-color: transparent;
+        border: none;
+        font-size: 1.1em;
+        outline-style: none;
+    }
+    
+    .options-bar {
+        opacity: 0;
+        display: flex;
+        justify-content: space-evenly;
+        transition: 0.2s;
+    }
+    
+    .note:hover .options-bar {
+        opacity: 1;
+        /* padding: 0.1em 0; */
+    }
+    
+    .note.img i {
         margin: 0%;
+        padding-bottom: 0.4em;
     }
     
     .note-label {
@@ -37,14 +54,10 @@
         top: 0.5%;
         left: 1%;
         margin: 0%;
-        background-color: transparent;
         border: 1px solid rgba(0, 0, 0, 0.377);
-        padding: 0.2em 0;
-        padding-left: 0.8em;
-        padding-right: 0.8em;
+        padding: 0.2em 0.8em;
         border-radius: 10px;
         text-align: center;
-        line-height: 0.8em;
         font-size: 0.8em;
         max-width: 10em;
         line-height: 1em;

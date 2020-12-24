@@ -1,4 +1,7 @@
-export function NoteTxt({ note }) {
+
+import { OptionsBar } from "./OptionsBar.jsx";
+
+export function NoteTxt({ note,onEdit }) {
 
 
     return (
@@ -6,12 +9,7 @@ export function NoteTxt({ note }) {
             <i className="fa fa-font"></i>
             {note.info.label && <h5 className="note-label">{note.info.label}</h5>}
             <p>{note.info.txt}</p>
-            {/* <div className="options-bar">
-                <button></button>
-                <button></button>
-                <button></button>
-                <button></button>
-            </div> */}
+            <OptionsBar note={note} onEdit={onEdit}/>
         </div>
     )
 
