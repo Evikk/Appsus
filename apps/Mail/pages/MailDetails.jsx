@@ -26,7 +26,7 @@ export class MailDetails extends React.Component {
                         <span>{mail.subject}</span>
                     </div>
                     <div className="mail-sender-time">
-                        <div className="mail-sender"><span>mail.sender</span><span>-- mail address here --</span></div>
+                        <div className="mail-sender"><span>{mail.sender}</span><span>{mail.senderAddress}</span></div>
                         <span className="mail-sent-at">{mail.sentAt.toLocaleTimeString([],{ hour: '2-digit', minute: '2-digit' })}</span>
                     </div>
                     <div className="mail-body">

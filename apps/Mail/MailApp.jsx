@@ -8,6 +8,7 @@ const { Route, Switch } = ReactRouterDOM;
 export class MailApp extends React.Component {
     state = {
         mails: [],
+        filterBy: 'isInbox',
         inboxCount: null,
         trashCount: null,
         isComposeOn: false
@@ -35,9 +36,9 @@ export class MailApp extends React.Component {
         this.setState({ inboxCount, trashCount });
     };
 
-    getInboxMails = () => {
+    getMails = (filterBy) => {
         return this.state.mails.filter((mail) => {
-            return mail.isInbox;
+            return mail[filterBy];
         });
     };
 
@@ -49,6 +50,10 @@ export class MailApp extends React.Component {
             });
         });
     };
+
+    onChangeFilter = (filter) => {
+        this.setState({filterBy: filter})
+    }
 
     onCloseCompose = () => {
         this.setState({isComposeOn: false})
@@ -67,15 +72,12 @@ export class MailApp extends React.Component {
     };
 
     render() {
-        const { trashCount } = this.state;
-        const { inboxCount } = this.state;
-        const { isComposeOn } = this.state;
-        const { mails } = this.state;
+        const { mails, trashCount, inboxCount, isComposeOn } = this.state;
         if (!mails) return <h2>you have no mails...</h2>;
         return (
             <section>
                 <main>
-                    <SideNav trashCount={trashCount} inboxCount={inboxCount} onCompose={()=>this.setState({isComposeOn: true})} />
+                    <SideNav trashCount={trashCount} inboxCount={inboxCount} activeBtn={this.state.filterBy} onChangeFilter={this.onChangeFilter} onCompose={()=>this.setState({isComposeOn: true})} />
                     {isComposeOn && <MailCompose onCloseCompose={this.onCloseCompose}/>}
                     <Switch>
                         <Route path="/mail/:mailId" component={MailDetails} />
@@ -84,7 +86,7 @@ export class MailApp extends React.Component {
                             path="/mail"
                             render={() => (
                                 <MailList
-                                    mails={this.getInboxMails()}
+                                    mails={this.getMails(this.state.filterBy)}
                                     onRemoveMail={this.onRemoveMail}
                                     onStarMail={this.onStarMail}
                                 />

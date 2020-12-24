@@ -1,28 +1,28 @@
 /* BASE */
-input, textarea {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.md {
-    font-size: 1.5em;
-}
-
-.mail-menu-btn {
-    border-radius: 50%;
-    border: 1px solid transparent;
-    padding: 5px;
-}
-
-.mail-menu-btn:hover {
-    border: 1px solid black;
-    background-color: #fff;
-    cursor: pointer;
-}
+input, textarea {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+.md {font-size: 1.5em;}
+.font-regular {font-weight: 400;}
+.red {color: red}
 
 main {
     display: flex;
     position: relative;
 }
+
+/* MAIL DETAILS */
+
+.mail-menu-btn {
+    border-radius: 50%;
+    border: 1px solid transparent;
+    padding: 13px;
+}
+
+.mail-menu-btn:hover {
+    background-color: #fff;
+    box-shadow: 1px 7px 14px 1px rgba(0,0,0,0.5);
+    cursor: pointer;
+}
+
 
 .mail-details-container,
 .mail-list-container {
@@ -173,8 +173,10 @@ main {
     display: flex;
     align-items: center;
     flex-direction: column;
+    padding-right: 13px;
 }
 .nav-btn-container {
+    margin: 10px 3px;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -182,7 +184,20 @@ main {
     background-color: #fff;
     gap: 10px;
     padding: 10px;
+    transition: all .3s;
+    border-bottom-right-radius: 17px;
+    border-top-right-radius: 17px;
 }
+
+.nav-btn-container.active-btn {
+    background-color: rgb(211, 202, 202);
+}
+
+.nav-btn-container:hover {
+    cursor: pointer;
+    box-shadow: 1px 7px 14px 1px rgba(0,0,0,0.5);
+}
+
 .nav-btn-container .btn-txt {
     width: 80%;
 }
