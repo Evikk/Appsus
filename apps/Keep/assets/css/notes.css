@@ -1,53 +1,64 @@
-.notes-list {
-    padding: 3em;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(auto, 20em));
-    /* grid-template-rows: repeat(auto-fill, 20em); */
-    grid-gap: 2.5em;
-    /* max-height: 70vh; */
-    /* columns: 4;
-    column-width: auto;
-    column-count: 4; */
-}
-
-.note {
-    box-shadow: 1px 3px 5px #7d7f80;
-    text-align: center;
-    border: rgba(0, 0, 0, 0.411) solid 1px;
-    border-radius: 10px;
-    color: rgb(0, 0, 0);
-    padding: 0 2em;
-    padding-bottom: 2em;
-}
-
-.note i {
-    padding: 0.5em;
-    margin: 0%;
-}
-
-p {
-    /* white-space: nowrap;
+    .notes-list {
+        max-width: 1400px;
+        margin: 0 auto;
+        columns: 4;
+    }
+    
+    .notes-list>* {
+        display: inline-block;
+        margin: 2em;
+    }
+    
+    .note {
+        min-width: 18em;
+        max-width: 19em;
+        box-shadow: 1.5px 3px 5px #7d7f80;
+        text-align: center;
+        border: rgba(0, 0, 0, 0.411) solid 1px;
+        border-radius: 8px;
+        color: rgb(0, 0, 0);
+        padding: 0 1.3em;
+        padding-bottom: 1.2em;
+        transition: 0.4s;
+        cursor: pointer;
+    }
+    
+    .note:hover {
+        transform: scale(1.03);
+    }
+    
+    .note i {
+        margin: 0%;
+    }
+    
+    p {
+        /* white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; */
-    overflow-wrap: break-word;
-}
-
-.note.txt {
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(236, 219, 219);
-    text-align: center;
-}
-
-.img-container {
-    height: 90%;
-}
-
-.note.img img {
-    height: 100%;
-    width: 100%;
-}
-
-.note.video * {
-    margin: 0;
-}
+        overflow-wrap: break-word;
+    }
+    
+    .note.txt {
+        background-color: rgb(236, 219, 219);
+        text-align: center;
+    }
+    
+    .img-container {
+        /* height: 50%; */
+    }
+    
+    .note.img img {
+        max-height: 18em;
+        width: 100%;
+    }
+    
+    .note.video * {
+        /* margin: 0; */
+        /* padding: 2em; */
+        border: none;
+    }
+    
+    .note.video iframe {
+        width: 100%;
+        padding-top: 0.5em;
+    }

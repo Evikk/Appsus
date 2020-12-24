@@ -27,7 +27,7 @@ export class KeepApp extends React.Component {
     render() {
         if (!this.state.notes) return <div>Loading..</div>
         return (
-            <section>
+            <section className="keep-app">
                 <NoteCreate onAddNote={this.onAddNote} />
                 <NoteList notes={this.state.notes} />
             </section>

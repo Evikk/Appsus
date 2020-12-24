@@ -3,9 +3,9 @@ export function NoteVideo({note}){
     
         return(
             <div className={`note ${note.type}`}>
-            <i className="fab fa-youtube"></i>
+            <i className="fa fa-youtube"></i>
             {note.label && <h3>note.label</h3>}
-            <iframe src={note.info.src} width="250px" height="180px"allowFullScreen></iframe>
+            <iframe src={note.info.src} width="270px" height="185px"allowFullScreen></iframe>
         </div>
         )
     

@@ -76,7 +76,7 @@ function addNote(note) {
             }
             break;
     }
-    gNotes.push(newNote)
+    gNotes.unshift(newNote)
     storageService.saveToStorage(STORAGE_KEY, gNotes)
 
 }

@@ -81,7 +81,7 @@ export class NoteCreate extends React.Component {
                 <div className="icons">
                     <i className="fa fa-font" onClick={() => this.setNoteType('txt')}></i>
                     <i className="fa fa-image" onClick={() => this.setNoteType('img')}></i>
-                    <i className="fab fa-youtube" onClick={() => this.setNoteType('video')}></i>
+                    <i className="fa fa-youtube" onClick={() => this.setNoteType('video')}></i>
                     <i className="fa fa-list-ul" onClick={() => this.setNoteType('todos')}></i>
                     <i className="fa fa-plus" onClick={() => this.onAddNote()}></i>
                 </div>
