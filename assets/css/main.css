@@ -18,6 +18,6 @@
 
 /* @import './cmps/AppHeader.css'; */
 
-@import '/apps/Keep/assets/css/note-create.css';
-@import '/apps/Keep/assets/css/notes.css';
-@import '/apps/Keep/assets/css/keep-main.css'
+@import '../../apps/Keep/assets/css/note-create.css';
+@import '../../apps/Keep/assets/css/notes.css';
+@import '../../apps/Keep/assets/css/keep-main.css';
