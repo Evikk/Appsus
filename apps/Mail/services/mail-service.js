@@ -9,6 +9,8 @@ export const mailService = {
 
 var mails;
 _createMails();
+// _sendFakeMails();
+
 window.db = mails
 function _createMails() {
     if (!mails || !mails.length) {
@@ -52,7 +54,11 @@ function _createMails() {
         ];
     }
 }
+// function _sendFakeMails() {
+//     setInterval({
 
+//     }, (utilService.getRandomInt(10,100))*1000)
+// }
 function query() {
     return Promise.resolve(mails);
 }

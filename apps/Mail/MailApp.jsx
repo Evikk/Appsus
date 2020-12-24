@@ -50,6 +50,11 @@ export class MailApp extends React.Component {
         });
     };
 
+    onCloseCompose = () => {
+        this.setState({isComposeOn: false})
+        this.loadMails()
+    }
+
     onRemoveMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {
             if (mail.isInbox) {
@@ -71,9 +76,8 @@ export class MailApp extends React.Component {
             <section>
                 <main>
                     <SideNav trashCount={trashCount} inboxCount={inboxCount} onCompose={()=>this.setState({isComposeOn: true})} />
-                    {isComposeOn && <MailCompose onCloseCompose={()=>this.setState({isComposeOn: false})}/>}
+                    {isComposeOn && <MailCompose onCloseCompose={this.onCloseCompose}/>}
                     <Switch>
-                        {/* <Route path="/mail/compose" component={MailCompose} /> */}
                         <Route path="/mail/:mailId" component={MailDetails} />
                         <Route
                             exact
