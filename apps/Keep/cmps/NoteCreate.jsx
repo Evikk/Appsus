@@ -4,6 +4,7 @@ export class NoteCreate extends React.Component {
         currNote: {
             type: 'txt',
             inputValue: '',
+            label:''
         },
         placeholder: 'What\'s on your mind..',
         showFileInput: false
@@ -44,8 +45,8 @@ export class NoteCreate extends React.Component {
     handleChange = (ev) => {
         const { value } = ev.target
         const currNoteCopy = { ...this.state.currNote }
-        currNoteCopy.inputValue = value
-        this.setState({ currNote: currNoteCopy })
+        currNoteCopy[ev.target.name] = value
+        this.setState({ currNote: currNoteCopy },console.log(this.state))
     }
 
     onAddNote = () => {
@@ -71,8 +72,8 @@ export class NoteCreate extends React.Component {
         return (
             <section className="note-create">
                 <div className="notes-input">
-                    {/* <input type="text"/> */}
-                    <textarea name="" cols="30" rows="2" placeholder={this.state.placeholder} onChange={this.handleChange}></textarea>
+                    <input type="text" placeholder="Label your note.." onChange={this.handleChange} name="label"/>
+                    <textarea name="inputValue" cols="30" rows="2" placeholder={this.state.placeholder} onChange={this.handleChange}></textarea>
                     {this.state.showFileInput && <input className="file-input" type="file" name="image" onChange={this.onImgInput} />}
                     {/* <label><i className='fas fa-palette'>{this.state.showColors&&<input type="color"/>}</i></label> */}
 

@@ -38,7 +38,7 @@ function addNote(note) {
         info: {},
         style: {
             backgroundColor: '#00d',
-            color: 'black',
+            color: 'red',
             fontSize: 15,
             fontFamily: ''
         }
@@ -47,28 +47,27 @@ function addNote(note) {
     switch (newNote.type) {
         case 'txt':
             newNote.info = {
-                label: '',
+                label: note.label,
                 txt: note.inputValue
             }
             break;
         case 'img':
             newNote.info = {
-                label: '',
+                label: note.label,
                 url: note.inputValue,
-                title: ''
             }
             break;
 
         case 'video':
-
+            var src = note.inputValue.replace('watch?v=', 'embed/')
             newNote.info = {
-                title: '',
-                src: note.inputValue
+                label: note.label,
+                src,
             }
             break;
         case 'todos':
             newNote.info = {
-                label: '',
+                label: note.label,
                 todos: [
                     { txt: '', doneAt: null },
                     { txt: '', doneAt: null }
