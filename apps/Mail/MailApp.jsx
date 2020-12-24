@@ -2,6 +2,7 @@ import { mailService } from "./services/mail-service.js";
 import { MailList } from "./cmps/MailList.jsx";
 import { MailDetails } from "./pages/MailDetails.jsx";
 import { SideNav } from "./cmps/SideNav.jsx";
+import { MailCompose } from "./cmps/MailCompose.jsx";
 const { Route, Switch } = ReactRouterDOM;
 
 export class MailApp extends React.Component {
@@ -9,6 +10,7 @@ export class MailApp extends React.Component {
         mails: [],
         inboxCount: null,
         trashCount: null,
+        isComposeOn: false
     };
 
     componentDidMount() {
@@ -60,17 +62,18 @@ export class MailApp extends React.Component {
     };
 
     render() {
-        console.log(this.state.inboxCount);
-
         const { trashCount } = this.state;
         const { inboxCount } = this.state;
+        const { isComposeOn } = this.state;
         const { mails } = this.state;
         if (!mails) return <h2>you have no mails...</h2>;
         return (
             <section>
                 <main>
-                    <SideNav trashCount={trashCount} inboxCount={inboxCount} />
+                    <SideNav trashCount={trashCount} inboxCount={inboxCount} onCompose={()=>this.setState({isComposeOn: true})} />
+                    {isComposeOn && <MailCompose onCloseCompose={()=>this.setState({isComposeOn: false})}/>}
                     <Switch>
+                        {/* <Route path="/mail/compose" component={MailCompose} /> */}
                         <Route path="/mail/:mailId" component={MailDetails} />
                         <Route
                             exact
