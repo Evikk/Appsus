@@ -9,8 +9,20 @@ export class MailDetails extends React.Component {
         const { mailId } = this.props.match.params;
         mailService.getById(mailId).then(mail =>{
             this.setState({ mail })
+            
+
         })
     };
+
+    goToInbox = () => {
+        this.props.history.push("/mail")
+    }
+    onDeleteMail = () => {
+        mailService.deleteMail(this.state.mail.id).then(msg => {
+            console.log(msg)
+            this.goToInbox()
+        })
+    }
 
     render() {
         const { mail } = this.state
@@ -18,8 +30,8 @@ export class MailDetails extends React.Component {
         return (
             <section className="main-mail-container">
                 <div className="mail-nav">
-                    <i className="fa fa-arrow-left mail-menu-btn md" onClick={()=>{this.props.history.push("/mail")}}></i>
-                    <i className="fa fa-trash-o mail-menu-btn md"></i>
+                    <i className="fa fa-arrow-left mail-menu-btn md" onClick={this.goToInbox}></i>
+                    <i className="fa fa-trash-o mail-menu-btn md" onClick={this.onDeleteMail}></i>
                 </div>
                 <div className="mail-details-container">
                     <div className="mail-subject">

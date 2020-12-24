@@ -1,6 +1,7 @@
+import { mailService } from "../services/mail-service.js";
 const { Link } = ReactRouterDOM;
 
-export function MailPreview({ mail, onRemoveMail, onStarMail }) {
+export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail }) {
     function getReadStatus() {
         return mail.isRead ? "" : "unread";
     }
@@ -14,7 +15,9 @@ export function MailPreview({ mail, onRemoveMail, onStarMail }) {
             return mail.sentAt.toLocaleTimeString().replace(/:\d+ /, " ");
         return mail.sentAt.toLocaleDateString();
     }
-
+    function onClickMail() {
+        console.log(mail.id, onReadMail());
+    }
     return (
         <div className="mail-preview-container">
             <i
@@ -29,7 +32,7 @@ export function MailPreview({ mail, onRemoveMail, onStarMail }) {
                     onStarMail(mail.id);
                 }}
             ></i>
-            <Link to={`/mail/${mail.id}`}>
+            <Link to={`/mail/${mail.id}`} onClick={() => onReadMail(mail.id)}>
                 <div className={`mail-preview-details ${getReadStatus()}`}>
                     <div className="preview-sender">
                         <span>
@@ -59,3 +62,5 @@ export function MailPreview({ mail, onRemoveMail, onStarMail }) {
         </div>
     );
 }
+
+

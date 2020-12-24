@@ -3,7 +3,8 @@ export const mailService = {
     query,
     getById,
     toggleStarMail,
-    moveMailToTrash,
+    deleteMail,
+    markAsRead,
     save
 };
 
@@ -31,6 +32,7 @@ function _createMails() {
             {
                 id: '456',
                 sender: "Shira",
+                senderAddress: "shira1987@walla.co.il",
                 subject: "Send me the last two files",
                 body: `hey, I saw you finished working on these files so send me the updated files, ok? thanks :)`,
                 isRead: true,
@@ -43,6 +45,7 @@ function _createMails() {
             {
                 id: '789',
                 sender: "Dwight Schrute",
+                senderAddress: "d_schrute@dundermifflin.com",
                 subject: "Memo #1x6G_09",
                 body: `Note that casual friday tradition is no longer relevant! please show with formal suiting`,
                 isRead: false,
@@ -69,11 +72,11 @@ function getById(mailId){
     return Promise.resolve(mail)
 }
 
-function moveMailToTrash(mail) {
-    mail.isInbox = false
-    mail.isTrash = true
-    // _saveMailsToStorage();
-    return Promise.resolve(`${mail.id} has moved to trash`)
+function deleteMail(mailId) {
+    return getById(mailId).then(mail => {
+        if (mail.isTrash) return _deleteFromDb(mail)
+        else return _moveMailToTrash(mail)
+    })
 }
 
 function toggleStarMail(mail) {
@@ -88,6 +91,11 @@ function save(mail){
     } else {
         return _add(mail);
     }
+}
+
+function markAsRead(mail) {
+    mail.isRead = true
+    return Promise.resolve(`${mail.id} is now read`)
 }
 
 function _add(mail) {
@@ -114,11 +122,21 @@ function _update(mail) {
     return Promise.resolve(mailToUpdate);
 }
 
-function deleteMail(mailId) {
+function _deleteFromDb(mailToDelete){
+    console.log(mailToDelete);
+    
     const idx = mails.findIndex(mail => {
-        return mail.id === mailId
+        return mail.id === mailToDelete.id
     })
     mails.splice(idx,1)
     // _saveMailsToStorage();
-    return Promise.resolve()
+    return Promise.resolve(`${mailToDelete.id} was deleted completely`)
 }
+
+function _moveMailToTrash(mail) {
+    mail.isInbox = false
+    mail.isTrash = true
+    // _saveMailsToStorage();
+    return Promise.resolve(`${mail.id} has moved to trash`)
+}
+
