@@ -1,4 +1,7 @@
-export function NoteImg({ note }) {
+import { NoteEdit } from "./NoteEdit.jsx";
+import { OptionsBar } from "./OptionsBar.jsx";
+
+export function NoteImg({ note ,onEdit}) {
 
     return (
         <div className={`note ${note.type}`}>
@@ -7,6 +10,7 @@ export function NoteImg({ note }) {
             <div className="img-container">
             <img src={note.info.url}/>
             </div>
+            <OptionsBar note={note} onEdit={onEdit}/>
         </div>
     )
 
