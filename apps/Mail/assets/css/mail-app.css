@@ -3,12 +3,28 @@ input, textarea {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
 .md {font-size: 1.5em;}
 .font-regular {font-weight: 400;}
 .red {color: red}
-
 main {
-    display: flex;
+    /* display: flex; */
     position: relative;
 }
-.main-container{ width: 100%; }
+.main-container{ 
+    width: calc(100% - 250px);
+}
+
+.wrapper-gen {
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 10px 10px 30px 10px;
+}
+
+.wrapper {
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+    display: flex;
+}
+
+
 
 .search-container {
     width: 100%;
@@ -51,12 +67,12 @@ main {
     margin: 0;
     padding: 0;
     width:100%;
+    flex-wrap: wrap;
     background-color: #fff;
     
 }
 .mail-item-container {
-    display: flex;
-    background-color: #fff;
+    width: 100%;
 }
 
 .mail-item-container:hover {
@@ -73,61 +89,48 @@ main {
 }
 
 .mail-preview-details {
-    margin: 10px;
+    position: relative;
     display: flex;
-    justify-content: space-between;
+    height: 50px;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
 }
 
 .preview-sender {
-    width: 15%;
-    /* display: flex;
-    justify-content: flex-start;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; */
-}
-
-.preview-main {
-    width: 65%;
-    height: 100%;
-    white-space: nowrap;
+    flex: 0 0 150px;
     overflow: hidden;
     text-overflow: ellipsis;
+    height: 1rem;
+    white-space: nowrap;
+}
+.preview-main {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .preview-mail-sent{
-    width: 10%;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.preview-main span{ 
-    margin-right: 10px;
-}
-
-.preview-subject {
-    width: 100%;
-    
-}
-.preview-body {
-    color: rgba(0, 0, 0, 0.5);
-    
+    flex: 0 0 150px;
+    margin-left: auto;
+    text-align: right;
+    padding-right: 10px;
 }
 
 .unread{
     font-weight: 900;
 }
 
+.mail-icon {
+    margin-left: 5px;
+}
+
 .fa-star {
-    display: flex;
-    align-items: center;
-    height: 100%;
     color: lightgray;
-    cursor: pointer;
-    margin-left: 15px;
 }
 
 .fa-star:hover {
+    cursor: pointer;
     color: rgb(230, 226, 226);
 }
 
@@ -141,7 +144,7 @@ main {
 .to-trash {
     visibility: hidden;
     position: absolute;
-    right: 9.5%;
+    right: 11%;
     background-color: #fff;
     padding: 0 20px;
     height: 100%;
@@ -157,7 +160,7 @@ main {
 .mail-details-container {
     display: flex;
     flex-direction: column;
-    padding: 40px;
+    padding:  20px 40px;
     gap: 20px;
 }
 
@@ -189,9 +192,13 @@ main {
 
 /* SIDE NAV */
 
+.nav-ctn {
+    width: 100%;
+}
+
 .nav-container {
-    width: 30%;
-    height: 800px;
+    width: 250px;
+    height: 600px;
     background-color: rgb(245, 237, 237);
     display: flex;
     align-items: center;
@@ -199,7 +206,7 @@ main {
     padding-right: 13px;
 }
 .nav-btn-container {
-    margin: 10px 3px;
+    margin: 10px 0;
     width: 100%;
     display: flex;
     justify-content: flex-start;
@@ -315,4 +322,62 @@ main {
     font-size: 1.2rem;
 }
 
-/* .compose-footer button:hover { }
+/* .compose-footer button:hover { }*/
+
+
+
+
+
+
+
+
+
+/* 
+.mail-preview-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.mail-preview-details {
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.preview-sender {
+    width: 15%;
+    display: flex;
+    justify-content: flex-start;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.preview-main {
+    width: 65%;
+    height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.preview-mail-sent{
+    width: 10%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.preview-main span{ 
+    margin-right: 10px;
+}
+
+.preview-subject {
+    width: 100%;
+    
+}
+.preview-body {
+    color: rgba(0, 0, 0, 0.5);
+    
+} */

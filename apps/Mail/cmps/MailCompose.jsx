@@ -16,6 +16,7 @@ export class MailCompose extends React.Component {
     };
     componentDidMount = () => {
         this.setState({ emptyState: this.state.mail });
+        if (this.props.mailToEdit !== null) this.setState({ mail: this.props.mailToEdit})
     };
     setType = (type) => {
         if (type === "send")
