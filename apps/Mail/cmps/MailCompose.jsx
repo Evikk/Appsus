@@ -22,13 +22,18 @@ export class MailCompose extends React.Component {
         if (type === "send")
             return {
                 ...this.state.mail,
+                sender: 'Me',
+                senderAddress: 'evyatarm@gmail.com',
                 isInbox: true,
                 isRead: false,
                 isDraft: false,
+                isSent: true
             };
         if (type === "draft")
             return {
                 ...this.state.mail,
+                sender: 'Me',
+                senderAddress: 'evyatarm@gmail.com',
                 isInbox: false,
                 isRead: true,
                 isDraft: true,
@@ -100,7 +105,7 @@ export class MailCompose extends React.Component {
                     <div className="compose-body">
                         <textarea
                             value={this.state.mail.body}
-                            rows="25"
+                            rows="15"
                             type="text"
                             name="body"
                             placeholder="Write your mail here"

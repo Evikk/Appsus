@@ -1,7 +1,22 @@
 import { MailPreview } from "./MailPreview.jsx";
 
-export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, openInCompose, currLabel }) {
+export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, openInCompose, currLabel, currFilter }) {
 
+    function getCurrFilter() {
+        let filter
+        switch (currFilter) {
+            case 'read':
+                filter = 'Read'
+                break;
+            case 'unread':
+                filter = 'Unread'
+                break;
+            default:
+                filter = ''
+                break;
+        }
+        return filter
+    }
     function getCurrLabel() {
         let label
         switch (currLabel) {
@@ -20,12 +35,6 @@ export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, openInCo
             case 'isTrash':
                 label = 'Messages in Trash'
                 break;
-            case 'read':
-                label = 'Read Messages'
-                break;
-            case 'unread':
-                label = 'Unread Messages'
-                break;
             default:
                 label = 'Messages'
                 break;
@@ -33,7 +42,7 @@ export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, openInCo
         return label
     }
 
-    if (mails.length === 0) return <div className="no-mail-msg"><h2>You Have No {getCurrLabel()}...</h2></div>
+    if (mails.length === 0) return <div className="no-mail-msg"><h2>You Have No {getCurrFilter()} {getCurrLabel()}...</h2></div>
     return (
         <ul className="mail-list">
             

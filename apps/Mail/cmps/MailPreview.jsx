@@ -1,4 +1,5 @@
 const { Link } = ReactRouterDOM;
+import {utilService} from '../../../services/utilService.js'
 
 export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openInCompose }) {
     function getReadStatus() {
@@ -37,8 +38,10 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openIn
                 if (!mail.isDraft) onReadMail(mail.id)
                 else openInCompose(mail)
                 }} className={`mail-preview-details ${getReadStatus()}`}>
-                {/* <div > */}
                     <div className="preview-sender">
+                        <span className="sender-icon">
+                            {utilService.getInitials(mail.sender)}
+                        </span>
                         <span>
                             {mail.sender}{" "}
                             {mail.sendTo && !mail.isDraft && (
@@ -57,7 +60,6 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openIn
                     <div className="preview-mail-sent">
                         <span>{getTime()}</span>
                     </div>
-                {/* </div> */}
             </Link>
             
         </div>

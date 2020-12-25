@@ -9,6 +9,7 @@ export class MailApp extends React.Component {
     state = {
         mails: [],
         filterBy: "isInbox",
+        filterByRead: 'all',
         searchBy: "",
         inboxCount: null,
         trashCount: null,
@@ -39,21 +40,27 @@ export class MailApp extends React.Component {
     };
 
     getMails = (filterBy) => {
-        const searchResults =  this.state.mails.filter(mail => {
+        const sortedMails = this.state.mails.sort((a,b) => {
+            return b.sentAt - a.sentAt
+        })
+        .filter(mail => {
             return mail.body.toLowerCase().includes(this.state.searchBy.toLowerCase()) ||
             mail.sender.toLowerCase().includes(this.state.searchBy.toLowerCase()) ||
             mail.subject.toLowerCase().includes(this.state.searchBy.toLowerCase())
         })
-        if (this.state.filterBy === 'all') return searchResults
-        else if (this.state.filterBy === 'unread') return searchResults.filter(result => {
-            return !result.isRead
-        })
-        else if (this.state.filterBy === 'read') return searchResults.filter(result => {
-            return result.isRead
-        })
-        return searchResults.filter((mail) => {
+        .filter((mail) => {
             return mail[filterBy];
         });
+        if (this.state.filterByRead === 'all') return sortedMails
+        else if (this.state.filterByRead === 'unread') return sortedMails.filter(result => {
+            return !result.isRead
+        })
+        else if (this.state.filterByRead === 'read') return sortedMails.filter(result => {
+            return result.isRead
+        })
+        // return sortedMails.filter((mail) => {
+        //     return mail[filterBy];
+        // });
     };
 
     onStarMail = (mailId) => {
@@ -76,6 +83,10 @@ export class MailApp extends React.Component {
 
     onChangeFilter = (filter) => {
         this.setState({ filterBy: filter });
+    };
+
+    onChangeFilterByRead = (filter) => {
+        this.setState({ filterByRead: filter });
     };
 
     onCloseCompose = () => {
@@ -104,7 +115,7 @@ export class MailApp extends React.Component {
     };
 
     render() {
-        const { mails, trashCount, inboxCount, isComposeOn, searchBy, filterBy } = this.state;
+        const { mails, trashCount, inboxCount, isComposeOn, searchBy, filterBy, filterByRead } = this.state;
         if (!mails) return <h2>you have no mails...</h2>;
         return (
                 <main>
@@ -123,9 +134,11 @@ export class MailApp extends React.Component {
                             <section className="main-container">
                                 <div className="search-container">
                                     <input type="text" placeholder="Search..." onChange={this.onSearchInput} value={searchBy}/>
-                                    <button onClick={()=>{this.setState({filterBy: 'all', searchBy: ''})}}>Show All</button>
-                                    <button onClick={()=>{this.setState({filterBy: 'unread', searchBy: ''})}}>Show Unread</button>
-                                    <button onClick={()=>{this.setState({filterBy: 'read', searchBy: ''})}}>Show Read</button>
+                                    <select name="" id="" onChange={()=>this.onChangeFilterByRead(event.target.value)}>
+                                        <option value="all">Show All</option>
+                                        <option value="unread">Show Unread</option>
+                                        <option value="read">Show Read</option>
+                                    </select>
                                 </div>
                                 <Switch>
                                     <Route path="/mail/:mailId" component={MailDetails} />
@@ -140,6 +153,7 @@ export class MailApp extends React.Component {
                                                 onReadMail={this.onReadMail}
                                                 openInCompose={this.openInCompose}
                                                 currLabel={filterBy}
+                                                currFilter={filterByRead}
                                             />
                                         )}
                                     />

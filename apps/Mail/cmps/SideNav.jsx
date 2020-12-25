@@ -11,10 +11,11 @@ export class SideNav extends React.Component {
             <nav className="nav-container">
                 <div className="compose-btn-container">
                     <button className="compose-btn" onClick={this.props.onCompose}>
-                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/1x/create_32dp.png"/>
-                        Compose
+                        <img src="https://simpleicon.com/wp-content/uploads/pencil.svg"/>
+                        <span>Compose</span>
                     </button>
                 </div>
+                <img className="nav-close-btn" src="https://www.flaticon.com/svg/static/icons/svg/75/75519.svg"/>
                 <div className="nav-ctn" onClick={()=>this.props.onChangeFilter('isInbox')}>
                     <Link className={`nav-btn-container ${this.checkActive('isInbox')}`} to="/mail/"><i className="fa fa-envelope-o"></i>
                     <span className="btn-txt">Inbox</span>
