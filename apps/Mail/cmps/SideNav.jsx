@@ -1,3 +1,4 @@
+const { Link } = ReactRouterDOM;
 export class SideNav extends React.Component {
     state = { };
     
@@ -10,31 +11,37 @@ export class SideNav extends React.Component {
             <nav className="nav-container">
                 <div className="compose-btn-container">
                     <button className="compose-btn" onClick={this.props.onCompose}>
-                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/1x/create_32dp.png"/>
-                        Compose
+                        <img src="https://simpleicon.com/wp-content/uploads/pencil.svg"/>
+                        <span>Compose</span>
                     </button>
                 </div>
-                <div className={`nav-btn-container ${this.checkActive('isInbox')}`} onClick={()=>this.props.onChangeFilter('isInbox')}>
-                    <i className="fa fa-envelope-o"></i>
+                <img className="nav-close-btn" src="https://www.flaticon.com/svg/static/icons/svg/75/75519.svg"/>
+                <div className="nav-ctn" onClick={()=>this.props.onChangeFilter('isInbox')}>
+                    <Link className={`nav-btn-container ${this.checkActive('isInbox')}`} to="/mail/"><i className="fa fa-envelope-o"></i>
                     <span className="btn-txt">Inbox</span>
                     <span>{this.props.inboxCount}</span>
+                    </Link>
                 </div>
-                <div className={`nav-btn-container ${this.checkActive('isStarred')}`} onClick={()=>this.props.onChangeFilter('isStarred')}>
-                    <i className="fa fa-star-o"></i>
+                <div className="nav-ctn" onClick={()=>this.props.onChangeFilter('isStarred')}>
+                    <Link className={`nav-btn-container ${this.checkActive('isStarred')}`} to="/mail/"><i className="fa fa-star-o"></i>
                     <span className="btn-txt">Starred</span>
+                    </Link>
                 </div>
-                <div className={`nav-btn-container ${this.checkActive('isSent')}`} onClick={()=>this.props.onChangeFilter('isSent')}>
-                    <i className="fa fa-send"></i>
+                <div className="nav-ctn" onClick={()=>this.props.onChangeFilter('isSent')}>
+                    <Link className={`nav-btn-container ${this.checkActive('isSent')}`} to="/mail/"><i className="fa fa-send"></i>
                     <span className="btn-txt">Sent</span>
+                    </Link>
                 </div>
-                <div className={`nav-btn-container ${this.checkActive('isDraft')}`} onClick={()=>this.props.onChangeFilter('isDraft')}>
-                    <i className="fa fa-pencil"></i>
+                <div className="nav-ctn" onClick={()=>this.props.onChangeFilter('isDraft')}>
+                    <Link className={`nav-btn-container ${this.checkActive('isDraft')}`} to="/mail/"><i className="fa fa-pencil"></i>
                     <span className="btn-txt">Draft</span>
+                    </Link>
                 </div>
-                <div className={`nav-btn-container ${this.checkActive('isTrash')}`} onClick={()=>this.props.onChangeFilter('isTrash')}>
-                    <i className="fa fa-trash-o"></i>
+                <div className="nav-ctn" onClick={()=>this.props.onChangeFilter('isTrash')}>
+                    <Link className={`nav-btn-container ${this.checkActive('isTrash')}`} to="/mail/"><i className="fa fa-trash-o"></i>
                     <span className="btn-txt">Trash</span>
                     <span>{this.props.trashCount}</span>
+                    </Link>
                 </div>
             </nav>
         );

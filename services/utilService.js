@@ -1,6 +1,7 @@
 export const utilService = {
     makeId,
-    getRandomInt
+    getRandomInt,
+    getInitials
 };
 
 function makeId(length = 8) {
@@ -18,4 +19,10 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getInitials(name) {
+    var splitName = name.split(' ')
+    if (splitName.length === 1 ) return splitName[0].charAt(0).toUpperCase()
+    return (splitName[0].charAt(0)+splitName[1].charAt(0)).toUpperCase()
 }

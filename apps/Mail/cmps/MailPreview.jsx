@@ -1,7 +1,7 @@
-import { mailService } from "../services/mail-service.js";
 const { Link } = ReactRouterDOM;
+import {utilService} from '../../../services/utilService.js'
 
-export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail }) {
+export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openInCompose }) {
     function getReadStatus() {
         return mail.isRead ? "" : "unread";
     }
@@ -15,9 +15,7 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail }) {
             return mail.sentAt.toLocaleTimeString().replace(/:\d+ /, " ");
         return mail.sentAt.toLocaleDateString();
     }
-    function onClickMail() {
-        console.log(mail.id, onReadMail());
-    }
+
     return (
         <div className="mail-preview-container">
             <i
@@ -26,27 +24,32 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail }) {
                     onRemoveMail(mail.id);
                 }}
             ></i>
-            <i
-                className={`fa fa-star md ${getStarredStatus()}`}
-                onClick={() => {
-                    onStarMail(mail.id);
-                }}
-            ></i>
-            <Link to={`/mail/${mail.id}`} onClick={() => onReadMail(mail.id)}>
-                <div className={`mail-preview-details ${getReadStatus()}`}>
+            {!mail.isTrash && (
+                <i
+                    className={`fa fa-star mail-icon md ${getStarredStatus()}`}
+                    onClick={() => {
+                        onStarMail(mail.id);
+                    }}
+                ></i>
+            )}
+            {mail.isTrash && <i className="fa fa-trash-o mail-icon md red"></i> }
+            
+            <Link to={`/mail/${mail.id}`} onClick={() => {
+                if (!mail.isDraft) onReadMail(mail.id)
+                else openInCompose(mail)
+                }} className={`mail-preview-details ${getReadStatus()}`}>
                     <div className="preview-sender">
+                        <span className="sender-icon">
+                            {utilService.getInitials(mail.sender)}
+                        </span>
                         <span>
                             {mail.sender}{" "}
-                            {mail.sendTo && !mail.isDraft &&(
+                            {mail.sendTo && !mail.isDraft && (
                                 <span className="font-regular">
                                     To: {mail.sendTo}
                                 </span>
                             )}
-                            {mail.isDraft &&
-                                <span className="red">
-                                    Draft
-                                </span>
-                            }
+                            {mail.isDraft && <span className="red">Draft</span>}
                         </span>
                     </div>
                     <div className="preview-main">
@@ -57,10 +60,8 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail }) {
                     <div className="preview-mail-sent">
                         <span>{getTime()}</span>
                     </div>
-                </div>
             </Link>
+            
         </div>
     );
 }
-
-

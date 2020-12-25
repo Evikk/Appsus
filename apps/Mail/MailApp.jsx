@@ -9,10 +9,12 @@ export class MailApp extends React.Component {
     state = {
         mails: [],
         filterBy: "isInbox",
+        filterByRead: 'all',
         searchBy: "",
         inboxCount: null,
         trashCount: null,
         isComposeOn: false,
+        mailToEdit: null
     };
 
     componentDidMount() {
@@ -38,15 +40,27 @@ export class MailApp extends React.Component {
     };
 
     getMails = (filterBy) => {
-        const searchResults =  this.state.mails.filter(mail => {
+        const sortedMails = this.state.mails.sort((a,b) => {
+            return b.sentAt - a.sentAt
+        })
+        .filter(mail => {
             return mail.body.toLowerCase().includes(this.state.searchBy.toLowerCase()) ||
             mail.sender.toLowerCase().includes(this.state.searchBy.toLowerCase()) ||
             mail.subject.toLowerCase().includes(this.state.searchBy.toLowerCase())
         })
-        if (this.state.filterBy === 'all') return searchResults
-        return searchResults.filter((mail) => {
+        .filter((mail) => {
             return mail[filterBy];
         });
+        if (this.state.filterByRead === 'all') return sortedMails
+        else if (this.state.filterByRead === 'unread') return sortedMails.filter(result => {
+            return !result.isRead
+        })
+        else if (this.state.filterByRead === 'read') return sortedMails.filter(result => {
+            return result.isRead
+        })
+        // return sortedMails.filter((mail) => {
+        //     return mail[filterBy];
+        // });
     };
 
     onStarMail = (mailId) => {
@@ -71,6 +85,10 @@ export class MailApp extends React.Component {
         this.setState({ filterBy: filter });
     };
 
+    onChangeFilterByRead = (filter) => {
+        this.setState({ filterByRead: filter });
+    };
+
     onCloseCompose = () => {
         this.setState({ isComposeOn: false });
         this.loadMails();
@@ -85,48 +103,63 @@ export class MailApp extends React.Component {
         });
     };
 
+    openInCompose = (mailToEdit) => {
+        this.setState({ isComposeOn: true, mailToEdit }, () => {
+            this.setState({mailToEdit: null})
+        })
+    }
+
     onSearchInput = (ev) => {
         const value = ev.target.value;
         this.setState({searchBy: value})
     };
 
     render() {
-        const { mails, trashCount, inboxCount, isComposeOn, searchBy } = this.state;
+        const { mails, trashCount, inboxCount, isComposeOn, searchBy, filterBy, filterByRead } = this.state;
         if (!mails) return <h2>you have no mails...</h2>;
         return (
                 <main>
-                    <SideNav
-                        trashCount={trashCount}
-                        inboxCount={inboxCount}
-                        activeBtn={this.state.filterBy}
-                        onChangeFilter={this.onChangeFilter}
-                        onCompose={() => this.setState({ isComposeOn: true })}
-                    />
-                    {isComposeOn && (
-                        <MailCompose onCloseCompose={this.onCloseCompose} />
-                    )}
-                    <section className="main-container">
-                        <div className="search-container">
-                            <input type="text" placeholder="Search..." onChange={this.onSearchInput} value={searchBy}/>
-                            <button onClick={()=>{this.setState({filterBy: 'all', searchBy: ''})}}>Show All</button>
-                            <button onClick={()=>{this.setState({filterBy: 'read', searchBy: ''})}}>Show Read</button>
-                            <button>Show Unread</button>
-                        </div>
-                        <Switch>
-                            <Route path="/mail/:mailId" component={MailDetails} />
-                            <Route
-                                exact
-                                path="/mail"
-                                render={() => (
-                                    <MailList
-                                        mails={this.getMails(this.state.filterBy)}
-                                        onRemoveMail={this.onRemoveMail}
-                                        onStarMail={this.onStarMail}
-                                        onReadMail={this.onReadMail}
-                                    />
-                                )}
+                    <section className="wrapper-gen">
+                        <div className="wrapper">
+                            <SideNav
+                                trashCount={trashCount}
+                                inboxCount={inboxCount}
+                                activeBtn={filterBy}
+                                onChangeFilter={this.onChangeFilter}
+                                onCompose={() => this.setState({ isComposeOn: true })}
                             />
-                        </Switch>
+                            {isComposeOn && (
+                                <MailCompose onCloseCompose={this.onCloseCompose} mailToEdit={this.state.mailToEdit}/>
+                            )}
+                            <section className="main-container">
+                                <div className="search-container">
+                                    <input type="text" placeholder="Search..." onChange={this.onSearchInput} value={searchBy}/>
+                                    <select name="" id="" onChange={()=>this.onChangeFilterByRead(event.target.value)}>
+                                        <option value="all">Show All</option>
+                                        <option value="unread">Show Unread</option>
+                                        <option value="read">Show Read</option>
+                                    </select>
+                                </div>
+                                <Switch>
+                                    <Route path="/mail/:mailId" component={MailDetails} />
+                                    <Route
+                                        exact
+                                        path="/mail"
+                                        render={() => (
+                                            <MailList
+                                                mails={this.getMails(this.state.filterBy)}
+                                                onRemoveMail={this.onRemoveMail}
+                                                onStarMail={this.onStarMail}
+                                                onReadMail={this.onReadMail}
+                                                openInCompose={this.openInCompose}
+                                                currLabel={filterBy}
+                                                currFilter={filterByRead}
+                                            />
+                                        )}
+                                    />
+                                </Switch>
+                            </section>
+                        </div>
                     </section>
                 </main>
         );
