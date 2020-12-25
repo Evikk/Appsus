@@ -4,7 +4,9 @@ export const keepService = {
     query,
     addNote,
     deleteNote,
-    cloneNote
+    cloneNote,
+    updateNote,
+    setTodoMark
 }
 
 window.keep = keepService
@@ -18,7 +20,6 @@ function createNotes() {
     if (!gNotes || !gNotes.length) {
         gNotes = demoNotes()
         storageService.saveToStorage(STORAGE_KEY, gNotes)
-
     }
 }
 
@@ -38,7 +39,7 @@ function addNote(note) {
         updatedAt: Date.now(),
         info: {},
         style: {
-            backgroundColor: 'white',
+            backgroundColor: 'transpert',
             color: 'red',
             fontSize: 15,
             fontFamily: ''
@@ -69,15 +70,13 @@ function addNote(note) {
         case 'todos':
             newNote.info = {
                 label: note.label,
-                todos: [
-                    { txt: '', doneAt: null },
-                    { txt: '', doneAt: null }
-                ]
+                todos: note.todos
             }
             break;
     }
     gNotes.unshift(newNote)
     storageService.saveToStorage(STORAGE_KEY, gNotes)
+    return Promise.resolve()
 
 }
 
@@ -98,9 +97,34 @@ function cloneNote(noteId) {
     })
 }
 
+function setTodoMark(note, idx) {
+    note.info.todos[idx].isDone = !note.info.todos[idx].isDone
+    storageService.saveToStorage(STORAGE_KEY, gNotes)
+    return Promise.resolve()
+
+}
+
 function findNoteIdxById(id) {
     var noteIdx = gNotes.findIndex(note => note.id === id)
     return Promise.resolve(noteIdx)
+}
+
+function updateNote(note, action) {
+    switch (action) {
+        case 'pin':
+            note.isPinned = !note.isPinned
+            break;
+        case 'clone':
+            cloneNote(note.id)
+            break;
+        case 'delete':
+            deleteNote(note.id)
+            break;
+        default:
+            note.style.backgroundColor = action
+    }
+    storageService.saveToStorage(STORAGE_KEY, gNotes)
+    return Promise.resolve()
 }
 
 
@@ -115,10 +139,10 @@ function demoNotes() {
             updatedAt: Date.now(),
             info: {
                 label: '',
-                txt: 'Fullstack Me Baby!'
+                txt: 'Fullstack!'
             },
             style: {
-                backgroundColor: 'white',
+                backgroundColor: 'transpert',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''
@@ -136,7 +160,7 @@ function demoNotes() {
                 title: 'Me playing Mi'
             },
             style: {
-                backgroundColor: 'white',
+                backgroundColor: 'transpert',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''

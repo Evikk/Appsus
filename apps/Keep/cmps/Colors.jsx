@@ -11,6 +11,7 @@ export function Colors({onEditColor}) {
             <span onClick={(ev) => onEditColor('#e1ccec', ev)} style={{ backgroundColor: "#f09ae9" }}></span>
             <span onClick={(ev) => onEditColor('#ececec', ev)} style={{ backgroundColor: "#e4e4e4" }}></span>
             <span onClick={(ev) => onEditColor('white', ev)}style={{ backgroundColor: "white"}}></span>
+            <span onClick={(ev) => onEditColor('rgb(241, 251, 255)', ev)}style={{ backgroundColor: "rgb(241, 251, 255)"}}></span>
         </div>
     )
 

@@ -1,3 +1,4 @@
+
 import { Colors } from "./Colors.jsx"
 
 export class OptionsBar extends React.Component {
@@ -11,6 +12,8 @@ export class OptionsBar extends React.Component {
             this.props.onEdit(this.props.note,color)
         })
     }
+
+  
     render() {
 
         return (

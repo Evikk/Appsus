@@ -75,10 +75,6 @@
         text-align: center;
     }
     
-    .img-container {
-        /* height: 50%; */
-    }
-    
     .note.img img {
         max-height: 18em;
         width: 100%;
@@ -88,4 +84,43 @@
         border: none;
         width: 100%;
         padding-top: 0.5em;
+    }
+    
+    .mark {
+        text-decoration: line-through;
+    }
+    
+    .note.todos li {
+        user-select: none;
+        text-align: start;
+    }
+    
+    .todos-modal {
+        background-color: rgba(0, 0, 0, 0.26);
+        padding: 2em;
+        width: 18em;
+        position: absolute;
+        left: calc(50vw - 9em);
+        top: 10%;
+        opacity: 0;
+        transition: 0.5s;
+        transform: translateY(-250px);
+    }
+    
+    .todos-modal.open-modal {
+        transform: translateY(0px);
+        max-height: unset;
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .todos-modal input {
+        border-radius: 6px;
+        padding: 0.3em;
+    }
+    
+    .todos-modal .close-btn {
+        position: absolute;
+        top: 0%;
+        right: 0;
     }
