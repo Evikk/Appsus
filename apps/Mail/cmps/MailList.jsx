@@ -1,6 +1,6 @@
 import { MailPreview } from "./MailPreview.jsx";
 
-export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, openInCompose, currLabel, currFilter }) {
+export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, onToggleReadMail, openInCompose, currLabel, currFilter }) {
 
     function getCurrFilter() {
         let filter
@@ -54,6 +54,7 @@ export function MailList({ mails, onRemoveMail, onStarMail, onReadMail, openInCo
                             onRemoveMail={onRemoveMail}
                             onStarMail={onStarMail}
                             onReadMail={onReadMail}
+                            onToggleReadMail={onToggleReadMail}
                             openInCompose={openInCompose}
                         />
                     </li>

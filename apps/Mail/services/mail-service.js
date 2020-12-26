@@ -5,6 +5,8 @@ export const mailService = {
     toggleStarMail,
     deleteMail,
     markAsRead,
+    toggleRead,
+    getBgColor,
     save
 };
 
@@ -22,6 +24,7 @@ function _createMails() {
                 senderAddress: "aviHakarish32@hotmail.com",
                 subject: "Hi",
                 body: `What's up?`,
+                bgColor: utilService.getRandomColor(),
                 isRead: false,
                 sentAt: new Date(2018, 11, 24, 10, 33, 30, 0),
                 isInbox: true,
@@ -35,6 +38,7 @@ function _createMails() {
                 senderAddress: "shira1987@walla.co.il",
                 subject: "Send me the last two files",
                 body: `hey, I saw you finished working on these files so send me the updated files, ok? thanks :)`,
+                bgColor: utilService.getRandomColor(),
                 isRead: true,
                 sentAt: new Date(2014, 7, 3, 16, 50, 40, 0),
                 isInbox: true,
@@ -48,6 +52,7 @@ function _createMails() {
                 senderAddress: "d_schrute@dundermifflin.com",
                 subject: "Memo #1x6G_09",
                 body: `Note that casual friday tradition is no longer relevant! please show with formal suiting`,
+                bgColor: utilService.getRandomColor(),
                 isRead: false,
                 sentAt: new Date(),
                 isInbox: true,
@@ -97,11 +102,20 @@ function markAsRead(mail) {
     mail.isRead = true
     return Promise.resolve(`${mail.id} is now read`)
 }
+function toggleRead(mail) {
+    mail.isRead = !mail.isRead
+    return Promise.resolve(`${mail.id} has changed read`)
+}
+
+function getBgColor(mail){
+    return mail.bgColor
+}
 
 function _add(mail) {
     const mailToAdd = {
         id: utilService.makeId(),
         sentAt: new Date(),
+        bgColor: utilService.getRandomColor(),
         ...mail
     };
     mails = [mailToAdd, ...mails];
