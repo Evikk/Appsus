@@ -32,7 +32,7 @@ export class NoteEdit extends React.Component {
     setEdit = (note, action) => {
         keepService.updateNote(note, action).then(() => {
             var keepOpen = (action === 'delete') ? false : true
-            this.props.setChanges(keepOpen)
+            this.props.setChanges(keepOpen,!keepOpen)
         })
     }
 
@@ -45,7 +45,7 @@ export class NoteEdit extends React.Component {
         const { onAddNote, onAddTodos } = this.props
         return (
             <section className={`edit-modal ${openModalClass}`} style={{ backgroundColor: note.style.backgroundColor }}>
-                <button className="close-btn" onClick={this.toggleEditModal}>X</button>
+                <button className="close-editModal-btn" onClick={this.toggleEditModal}><i className="fa fa-times"></i></button>
                 {note.info.label && <h5 className="note-label">{note.info.label}</h5>}
                 <div className="details">
                     {note.type === 'txt' && <p>{note.info.value}</p>}

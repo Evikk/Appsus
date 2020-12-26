@@ -38,11 +38,11 @@ export class KeepApp extends React.Component {
 
 
     onAddNote = (noteToAdd) => {
-        console.log(noteToAdd);
-
         keepService.addNote(noteToAdd).then(() => {
             this.loadNotes()
-            eventBusService.emit('show-msg','Your Note Is Added!')
+           if(!noteToAdd.id) eventBusService.emit('show-msg','Your Note Is Added!')
+           else eventBusService.emit('show-msg','Note Edited Successfully')
+           
         })
     }
     onAddTodos = (todosToAdd) => {
@@ -54,7 +54,8 @@ export class KeepApp extends React.Component {
         }
         keepService.addNote(todos).then(() => {
             this.loadNotes()
-            eventBusService.emit('show-msg','Your Note Is Added!')
+            if(!todosToAdd.id) eventBusService.emit('show-msg','Your Note Is Added!')
+           else eventBusService.emit('show-msg','Note Edited Successfully')
         })
     }
     
@@ -65,15 +66,14 @@ export class KeepApp extends React.Component {
         this.setState({ edit: editCopy })
     }
     
-    setChanges = (isModalOpen) => {
+    setChanges = (isModalOpen,isDelete) => {
         this.loadNotes()
         if (!isModalOpen) {
             const editCopy = { ...this.state.edit }
             editCopy.note = null
             this.setState({ edit: editCopy })
-            eventBusService.emit('show-msg','Your Note Is Deleted!')
         }
-        eventBusService.emit('show-msg','Your Note Edited!')
+        if(isDelete)eventBusService.emit('show-msg','Your Note Is Deleted!')
     }
 
     render() {

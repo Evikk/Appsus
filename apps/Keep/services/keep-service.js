@@ -71,7 +71,7 @@ function addNote(note) {
         updatedAt: Date.now(),
         info: {},
         style: {
-            backgroundColor: 'transpert',
+            backgroundColor: 'lightblue',
             color: 'red',
             fontSize: 15,
             fontFamily: ''

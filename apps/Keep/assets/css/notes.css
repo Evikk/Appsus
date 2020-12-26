@@ -33,7 +33,7 @@
     }
     
     .options-bar {
-        /* opacity: 0; */
+        opacity: 0;
         display: flex;
         justify-content: space-evenly;
         transition: 0.2s;

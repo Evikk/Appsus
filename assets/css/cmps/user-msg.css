@@ -53,6 +53,7 @@
         opacity: 1;
     }
 }
+
 @keyframes wobble-hor-bottom {
     0% {
         transform: translateX(1000px);
@@ -77,9 +78,11 @@
         transform: translateX(0);
     }
 }
+
 .slide-in-right {
     animation: wobble-hor-bottom 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
+
 .slide-out-right {
     animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }

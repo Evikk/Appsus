@@ -3,7 +3,7 @@ import { eventBusService } from "../services/eventBusService.js";
 export class UserMsg extends React.Component {
     state = {
         msg: '',
-        isShown: 'false',
+        isShown: false,
     };
 
     componentDidMount() {
@@ -22,12 +22,11 @@ export class UserMsg extends React.Component {
 
     render() {
         return (
-            <div
-                className={`notification ${
-                    this.state.isShown ? "slide-in-right" : "slide-out-right"
-                }`}
+            this.state.isShown && <div
+                className={`notification ${this.state.isShown ? "slide-in-right" : "slide-out-right"
+                    }`}
             >
-                <i className="fa fa-times msg-close-btn" onClick={()=>this.setState({isShown: false})}></i>
+                <i className="fa fa-times msg-close-btn" onClick={() => this.setState({ isShown: false })}></i>
                 <h2 className="msg-txt">{this.state.msg}</h2>
             </div>
         );

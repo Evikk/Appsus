@@ -70,7 +70,7 @@ export class TodosCreate extends React.Component {
                 <button onClick={() => {
                     const { toggleTodosModal, closeModal, onAddTodos } = this.props
                     toggleTodosModal()
-                    closeModal()
+                    if (closeModal) closeModal()
                     onAddTodos(this.state.todos)
                     this.setState({
                         todos: {

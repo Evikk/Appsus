@@ -6,6 +6,14 @@ export class OptionsBar extends React.Component {
         showColors: false
     }
 
+    componentDidMount() {
+        
+    }
+    hideColors=()=>{
+        console.log('hi');
+        this.setState({showColors:false})
+    }
+    
 
     onEditColor = (color) => {
         this.setState({ showColors: false },()=>{
@@ -26,7 +34,7 @@ export class OptionsBar extends React.Component {
                 <button onClick={() => this.props.onEdit(this.props.note, 'delete')}><i className="fa fa-trash-o"></i></button>
                 <button onClick={() => this.props.onEdit(this.props.note, 'mail')}><i className="fa fa-envelope"></i></button>
             </div>
-               {this.state.showColors&&<Colors onEditColor={this.onEditColor} />}
+                {this.state.showColors&&<Colors onEditColor={this.onEditColor} hideColors={this.hideColors} />}
                 </section>
         )
     }
