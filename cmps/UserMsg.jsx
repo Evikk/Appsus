@@ -3,7 +3,7 @@ import { eventBusService } from "../services/eventBusService.js";
 export class UserMsg extends React.Component {
     state = {
         msg: '',
-        isShown: 'false',
+        isShown: false,
     };
 
     componentDidMount() {
