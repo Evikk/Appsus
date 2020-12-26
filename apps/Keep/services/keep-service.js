@@ -183,7 +183,7 @@ function demoNotes() {
                 value: 'Fullstack!'
             },
             style: {
-                backgroundColor: 'transpert',
+                backgroundColor: 'lightblue',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''
@@ -201,7 +201,7 @@ function demoNotes() {
                 title: 'Me playing Mi'
             },
             style: {
-                backgroundColor: 'transpert',
+                backgroundColor: 'lightblue',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''

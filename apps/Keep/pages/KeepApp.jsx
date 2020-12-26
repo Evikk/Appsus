@@ -3,6 +3,7 @@ import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { keepService } from '../services/keep-service.js'
 import { eventBusService } from '../../../services/eventBusService.js'
+import { UserMsg } from "../../../cmps/UserMsg.jsx"
 
 
 export class KeepApp extends React.Component {
@@ -20,7 +21,7 @@ export class KeepApp extends React.Component {
             keepService.setTodoMark(lineToMark)
             this.loadNotes()
         })
-       
+
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -41,6 +42,7 @@ export class KeepApp extends React.Component {
 
         keepService.addNote(noteToAdd).then(() => {
             this.loadNotes()
+            eventBusService.emit('show-msg','Your Note Is Added!')
         })
     }
     onAddTodos = (todosToAdd) => {
@@ -52,23 +54,26 @@ export class KeepApp extends React.Component {
         }
         keepService.addNote(todos).then(() => {
             this.loadNotes()
+            eventBusService.emit('show-msg','Your Note Is Added!')
         })
     }
-
+    
     onEdit = (note, action) => {
         const editCopy = { ...this.state.edit }
         editCopy.action = action
         editCopy.note = note
         this.setState({ edit: editCopy })
     }
-
+    
     setChanges = (isModalOpen) => {
         this.loadNotes()
         if (!isModalOpen) {
             const editCopy = { ...this.state.edit }
             editCopy.note = null
             this.setState({ edit: editCopy })
+            eventBusService.emit('show-msg','Your Note Is Deleted!')
         }
+        eventBusService.emit('show-msg','Your Note Edited!')
     }
 
     render() {
@@ -76,14 +81,15 @@ export class KeepApp extends React.Component {
         const pinnedNotes = this.state.notes.filter(note => note.isPinned)
         const notes = this.state.notes.filter(note => !note.isPinned)
         return (
-            
+
             <section className="keep-app">
-                   <section className="closeEditModal"></section>
+                <section className="closeEditModal"></section>
                 <NoteCreate onAddNote={this.onAddNote} onAddTodos={this.onAddTodos} />
                 <NoteList notes={pinnedNotes} onEdit={this.onEdit} />
                 <hr />
                 <NoteList notes={notes} onEdit={this.onEdit} />
                 {this.state.edit.note && <NoteEdit edit={this.state.edit} setChanges={this.setChanges} onEdit={this.onEdit} onAddNote={this.onAddNote} onAddTodos={this.onAddTodos} />}
+                <UserMsg />
             </section>
         )
     }
