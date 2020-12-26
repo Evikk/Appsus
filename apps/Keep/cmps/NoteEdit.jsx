@@ -38,7 +38,7 @@ export class NoteEdit extends React.Component {
         const{onAddNote,onAddTodos}=this.props
         return (
 
-            openEditModal && <section className="edit-modal" style={{ backgroundColor: note.style.backgroundColor }}>
+            openEditModal && <section className="edit-modal" style={{ backgroundColor: 'whitesmoke' }}>
                 {note.info.label && <h5 className="note-label">{note.info.label}</h5>}
                 <div className="details">
                     {note.info.txt && <p>{note.info.txt}</p>}
