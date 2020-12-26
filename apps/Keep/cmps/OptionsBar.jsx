@@ -15,7 +15,6 @@ export class OptionsBar extends React.Component {
 
   
     render() {
-
         return (
             <section>
             <div className="options-bar">

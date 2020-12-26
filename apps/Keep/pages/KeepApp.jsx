@@ -1,8 +1,9 @@
 import { NoteCreate } from "../cmps/NoteCreate.jsx"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
-import { PinNotes } from "../cmps/PinNotes.jsx"
 import { keepService } from '../services/keep-service.js'
+import {eventBusService} from '../../../services/eventBusService.js'
+
 
 export class KeepApp extends React.Component {
     state = {
@@ -15,7 +16,15 @@ export class KeepApp extends React.Component {
 
     componentDidMount() {
         this.loadNotes()
+        this.unsubscribe = eventBusService.on('markTodo', (lineToMark) => {
+            keepService.setTodoMark(lineToMark)
+            this.loadNotes()
+        })
     }
+    componentWillUnmount() {
+        this.unsubscribe();
+    }
+
 
     loadNotes = () => {
         let notesCopy = this.state.notes
@@ -27,15 +36,17 @@ export class KeepApp extends React.Component {
 
 
     onAddNote = (noteToAdd) => {
+
         keepService.addNote(noteToAdd)
         this.loadNotes()
 
     }
     onAddTodos = (todosToAdd) => {
         var todos = {
-            todos:todosToAdd.todos,
+            inputValue:todosToAdd.todos,
             type:'todos',
-            label:todosToAdd.label
+            label:todosToAdd.label,
+            id:(todosToAdd.id)?todosToAdd.id:''
         }
         keepService.addNote(todos).then(()=>{
             this.loadNotes()
@@ -57,7 +68,6 @@ export class KeepApp extends React.Component {
         this.loadNotes()
     }
 
-
     render() {
         if (!this.state.notes) return <div>Loading..</div>
         const pinnedNotes = this.state.notes.filter(note => note.isPinned)
@@ -68,7 +78,7 @@ export class KeepApp extends React.Component {
                 <NoteList notes={pinnedNotes} onEdit={this.onEdit}/>
                 <hr/>
                 <NoteList notes={notes} onEdit={this.onEdit} />
-                {this.state.edit.note && <NoteEdit edit={this.state.edit} setChanges={this.setChanges} />}
+                {this.state.edit.note && <NoteEdit edit={this.state.edit} setChanges={this.setChanges} onEdit={this.onEdit} onAddNote={this.onAddNote}onAddTodos={this.onAddTodos} />}
             </section>
         )
     }

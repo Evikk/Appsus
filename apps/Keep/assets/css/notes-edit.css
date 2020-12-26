@@ -21,3 +21,17 @@
     padding-top: 0.1em;
     padding-bottom: 0em;
 }
+
+.edit-modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    position: absolute;
+    left: 32.5vw;
+    height: 50vh;
+    width: 35vw;
+    top: 30vh;
+}
+
+.edit-modal li {}

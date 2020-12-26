@@ -28,8 +28,22 @@ function query() {
     return Promise.resolve(gNotes)
 }
 
+// function editNote(noteToUpdate, note) {
+//     console.log(noteToUpdate);
+//     if (note.label) noteToUpdate.info.label = note.label
+//     if (note.type === 'txt') noteToUpdate.info.txt = note.inputValue
+//     if (note.type === 'video') noteToUpdate.info.src = note.inputValue
+//     if (note.type === 'img') noteToUpdate.info.url = note.inputValue
+//     if (note.type === 'todos') noteToUpdate.info.todos = note.inputValue
+//     storageService.saveToStorage(STORAGE_KEY, gNotes)
+// }
 
 function addNote(note) {
+    // if (note.id) {
+    //     var noteToUpdate = gNotes.find(note => note.id === note.id)
+    //     editNote(noteToUpdate, note)
+    //     return
+    // }
     var newNote = {
 
         id: utilService.makeId(),
@@ -61,16 +75,15 @@ function addNote(note) {
             break;
 
         case 'video':
-            var src = note.inputValue.replace('watch?v=', 'embed/')
             newNote.info = {
                 label: note.label,
-                src,
+                src: note.inputValue
             }
             break;
         case 'todos':
             newNote.info = {
                 label: note.label,
-                todos: note.todos
+                todos: note.inputValue
             }
             break;
     }
@@ -97,11 +110,12 @@ function cloneNote(noteId) {
     })
 }
 
-function setTodoMark(note, idx) {
+function setTodoMark(lineToMark) {
+    console.log(lineToMark);
+    const { note, idx } = lineToMark
     note.info.todos[idx].isDone = !note.info.todos[idx].isDone
     storageService.saveToStorage(STORAGE_KEY, gNotes)
     return Promise.resolve()
-
 }
 
 function findNoteIdxById(id) {

@@ -33,7 +33,7 @@
     }
     
     .options-bar {
-        opacity: 0;
+        /* opacity: 0; */
         display: flex;
         justify-content: space-evenly;
         transition: 0.2s;
@@ -64,14 +64,10 @@
     }
     
     p {
-        /* white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis; */
         overflow-wrap: break-word;
     }
     
     .note.txt {
-        /* background-color: rgb(236, 219, 219); */
         text-align: center;
     }
     

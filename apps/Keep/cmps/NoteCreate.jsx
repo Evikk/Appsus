@@ -1,4 +1,4 @@
-import { keepService } from "../services/keep-service.js";
+
 import { TodosCreate } from "./TodosCreate.jsx";
 
 export class NoteCreate extends React.Component {
@@ -6,16 +6,19 @@ export class NoteCreate extends React.Component {
         currNote: {
             type: 'txt',
             inputValue: '',
-            label: ''
+            label: '',
+            id: ''
         },
+        noteToUpdate: null,
         placeholder: 'What\'s on your mind..',
         showFileInput: false,
         openTodosModal: false
     }
+    // componentDidMount() {
+    //     this.isEdit()
+    // }
 
-    componentDidMount() {
 
-    }
 
     setNoteType = (type) => {
         var placeholder = ''
@@ -25,7 +28,6 @@ export class NoteCreate extends React.Component {
                 break;
             case 'img':
                 placeholder = 'Enter img url..'
-                this.setState({ showFileInput: !this.state.showFileInput })
                 break;
             case 'video':
                 placeholder = 'Enter video url..'
@@ -37,17 +39,19 @@ export class NoteCreate extends React.Component {
         }
         const currNoteCopy = { ...this.state.currNote }
         currNoteCopy.type = type
+        currNoteCopy.inputValue = ''
+        // currNoteCopy.id=(this.props.note.id)?this.props.note.id:''
         this.setState({
             currNote: currNoteCopy,
             placeholder,
-            // showFileInput: (type !== 'img' &&this.state.showFileInput) ? false : true
+            showFileInput: (type === 'img') ? !this.state.showFileInput : false
         })
-
     }
 
     handleChange = (ev) => {
-        const { value } = ev.target
         const currNoteCopy = { ...this.state.currNote }
+        var { value } = ev.target
+        if (this.state.currNote.type === 'video') value = value.replace('watch?v=', 'embed/')
         currNoteCopy[ev.target.name] = value
         this.setState({ currNote: currNoteCopy })
     }
@@ -55,8 +59,12 @@ export class NoteCreate extends React.Component {
     onAddNote = () => {
         const { type, inputValue } = this.state.currNote
         if (!inputValue) return
-        if (type === 'video' && !inputValue.includes('.com')) return
-        else if (type === 'img' && !inputValue.includes('.com')) return
+        if ((type === 'video' || type === 'img') && !inputValue.includes('.com')) {
+            const currNoteCopy = { ...this.state.currNote }
+            currNoteCopy.inputValue = 'PLEASE ENTER VALID URL'
+            this.setState({ currNote: currNoteCopy })
+            return
+        }
         this.props.onAddNote(this.state.currNote)
         this.clearInputs()
     }
@@ -66,9 +74,8 @@ export class NoteCreate extends React.Component {
         currNoteCopy.inputValue = ''
         currNoteCopy.type = 'txt'
         currNoteCopy.label = ''
-        this.setState({ currNote: currNoteCopy, placeholder :'What\'s on your mind..'})
+        this.setState({ currNote: currNoteCopy, placeholder: 'What\'s on your mind..' })
     }
-
 
     onImgInput = (ev) => {
         this.loadImageFromInput(ev)
@@ -87,25 +94,33 @@ export class NoteCreate extends React.Component {
         reader.readAsDataURL(ev.target.files[0]);
     }
 
-    toggleTodosModal=()=>{
+    toggleTodosModal = () => {
         this.setState({ openTodosModal: !this.state.openTodosModal })
         this.clearInputs()
-
     }
+
+    // isEdit=()=>{
+        
+    //     if (this.props.note) {
+    //         const {  note } = this.props
+    //         const currNoteCopy = { ...this.state.currNote }
+    //         currNoteCopy.id=note.id
+    //         this.setState({currNote:currNoteCopy })
+    //         // return note.info.todos
+    //     }
+    //     else return 
+    // }
 
 
     render() {
         return (
             <section className="note-create">
-               <TodosCreate toggleTodosModal={this.toggleTodosModal}toggleStatus={this.state.openTodosModal} onAddTodos={this.props.onAddTodos}/>
-
+                <TodosCreate note={this.props.note} toggleTodosModal={this.toggleTodosModal} toggleStatus={this.state.openTodosModal} onAddTodos={this.props.onAddTodos} />
                 <div className="notes-input">
                     <input type="text" placeholder="Label your note.." onChange={this.handleChange} name="label" value={this.state.currNote.label} />
                     <textarea name="inputValue" cols="30" rows="2" value={this.state.currNote.inputValue} placeholder={this.state.placeholder} onChange={this.handleChange}></textarea>
                     {this.state.showFileInput && <input className="file-input" type="file" name="image" onChange={this.onImgInput} />}
                     {/* <label><i className='fas fa-palette'>{this.state.showColors&&<input type="color"/>}</i></label> */}
-
-
                 </div>
                 <div className="icons">
                     <i className="fa fa-font" onClick={() => this.setNoteType('txt')}></i>
