@@ -1,7 +1,7 @@
 .notification {
     position: absolute;
     bottom: 0px;
-    left: 0px;
+    right: 0px;
     width: 390px;
     box-sizing: border-box;
     color: whitesmoke;
