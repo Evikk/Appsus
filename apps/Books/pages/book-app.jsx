@@ -53,7 +53,7 @@ export class BookApp extends React.Component {
                     filterBy={this.state.filterBy}
                     onSetFilter={this.onSetFilter}
                 />
-                <main>
+                <main className="main-view">
                     <ul className="book-list">
                         <BookList books={this.getBooksForDisplay()} />
                     </ul>

@@ -1,17 +1,134 @@
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-nav-icon {
+    font-size: 50px;
+    margin: 0.5em;
+    cursor: pointer;
+}
+
+.main-header-container {
+    animation: fade-in 0.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+    margin: 0;
+    padding: 0;
+    background-color: #333333;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    border: 3px solid #bbbbbb;
+    align-items: center;
+    height: 139px;
+    width: 250px;
+    position: absolute;
+    top: 98px;
+    right: 0px;
+    z-index: 99;
+}
+
+.main-header-container h4{
+    color: #f9f9f9;
+    text-align: center;
+    font-size: 16px;
+}
+
+.main-header-container li a {
+    display: inline-block;
+    color: #f9f9f9;
+    font-size: 3em;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.main-header-container li a:hover {
+    color: #c2dbb6;
+}
+
+@keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+
 /* nav {
     background-color: violet;
     padding: 5px 20px;
 } */
+/* 
+.apps-wrapper li {
+    margin: 0 10px;
+}
+.apps-wrapper li span{
+    display: none;
+}
 
-.nav-wrapper {
-    background-color: violet;
+.header-nav-wrapper {
+    background-color: whitesmoke;
     padding: 5px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 0;
 }
+.apps-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mail-app-icon {
+    width: 79px;
+}
+.book-app-icon {
+    width: 58px;
+}
+.keep-app-icon {
+    width: 60px;
+    padding-bottom: 15px;
+}
+
+.header-hamburger-icon {
+    display: none;
+    font-size: 50px;
+}
 
 .logo img{
-    width: 150px;
+    width: 250px;
 }
+@media (max-width: 860px) {
+    .header-nav-wrapper { padding: 5px 0;}
+}
+@media (max-width: 541px) {
+    .header-hamburger-icon {
+        display: block;
+        margin-right: 30px;
+    }
+    .apps-wrapper {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 99;
+    }
+    .apps-wrapper li a{
+        display: flex;
+        width: 140px;
+        background-color: #fff;
+        justify-content: center;
+        align-items: space-between;
+        font-size: 30px;
+    }
+    .apps-wrapper li img{
+       width: 30px;
+    }
+    .apps-wrapper li span{
+        display: inline;
+    }
+    
+} */

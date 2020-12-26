@@ -259,12 +259,12 @@
     color: white;
 }
 
-main {
+.main-view {
     display: flex;
     padding: 20px 0;
 }
 
-main>* {
+.main-view>* {
     padding: 20px;
 }
 
