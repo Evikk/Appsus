@@ -1,4 +1,5 @@
 import { mailService } from "../services/mail-service.js";
+const { Link } = ReactRouterDOM;
 
 export class MailDetails extends React.Component {
     state = {
@@ -33,6 +34,7 @@ export class MailDetails extends React.Component {
                             this.props.onRemoveMail(mail.id)
                             this.goToInbox()
                             }}></i>
+                        <Link to={`/keep/mail?&mail=${mail.body}`}><i className="fa fa-external-link mail-menu-btn md"></i></Link>
                     </div>
                 </div>
                 <div className="mail-details-container">

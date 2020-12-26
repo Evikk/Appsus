@@ -25,11 +25,10 @@ export class SideNav extends React.Component {
                         <span>Compose</span>
                     </button>
                 </div>
-                <img
-                    className="nav-close-btn"
+                <i
+                    className="nav-close-btn fa fa-times"
                     onClick={() => this.props.onToggleMenu()}
-                    src="https://www.flaticon.com/svg/static/icons/svg/75/75519.svg"
-                />
+                ></i>
                 <div
                     className="nav-ctn"
                     onClick={() => {

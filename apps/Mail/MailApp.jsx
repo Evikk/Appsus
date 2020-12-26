@@ -3,6 +3,8 @@ import { MailList } from "./cmps/MailList.jsx";
 import { MailDetails } from "./pages/MailDetails.jsx";
 import { SideNav } from "./cmps/SideNav.jsx";
 import { MailCompose } from "./cmps/MailCompose.jsx";
+import { UserMsg } from "../../cmps/UserMsg.jsx";
+import { eventBusService } from "../../services/eventBusService.js"
 const { Route, Switch } = ReactRouterDOM;
 
 export class MailApp extends React.Component {
@@ -16,10 +18,21 @@ export class MailApp extends React.Component {
         isComposeOn: false,
         mailToEdit: null,
         isMenuOpen: false,
+        mailFromKeep: {
+            body: new URLSearchParams(window.location.href).get('keep'), 
+            subject: '', 
+            sendTo: ''
+        }
     };
 
     componentDidMount() {
+        this.checkMailFromKeep()
         this.loadMails();
+    }
+
+    checkMailFromKeep = () => {
+        const {mailFromKeep} = this.state
+        if (mailFromKeep.body) this.setState({ mailToEdit: mailFromKeep, isComposeOn: true })
     }
 
     loadMails = () => {
@@ -77,27 +90,18 @@ export class MailApp extends React.Component {
 
     onStarMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {
-            mailService.toggleStarMail(mail).then((msg) => {
-                console.log(msg);
-                this.loadMails();
-            });
+            mailService.toggleStarMail(mail).then(() => this.loadMails());
         });
     };
 
     onReadMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {
-            mailService.markAsRead(mail).then((msg) => {
-                console.log(msg);
-                this.loadMails();
-            });
+            mailService.markAsRead(mail).then(() => this.loadMails());
         });
     };
     onToggleReadMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {
-            mailService.toggleRead(mail).then((msg) => {
-                console.log(msg);
-                this.loadMails();
-            });
+            mailService.toggleRead(mail).then(() => this.loadMails());
         });
     };
 
@@ -117,7 +121,7 @@ export class MailApp extends React.Component {
     onRemoveMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {
             mailService.deleteMail(mail.id).then((msg) => {
-                console.log(msg);
+                eventBusService.emit('show-msg', msg)
                 this.loadMails();
             });
         });
@@ -155,6 +159,7 @@ export class MailApp extends React.Component {
             <main>
                 <section className="wrapper-gen">
                     <div className="wrapper">
+                        <UserMsg/>
                         <SideNav
                             isMenuOpen={isMenuOpen}
                             onToggleMenu={this.toggleMenu}

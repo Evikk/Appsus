@@ -250,7 +250,7 @@ select {width: 150px;}
 .nav-close-btn {
     display: none;
     position: absolute;
-    width: 28px;
+    font-size: 30px;
     top: 10px;
     right: 10px;
 }
@@ -296,7 +296,7 @@ select {width: 150px;}
     position: absolute;
     bottom: 0;
     right: 0;
-    z-index: 99;
+    z-index: 98;
 }
 
 .compose-header {
@@ -369,7 +369,7 @@ select {width: 150px;}
     .wrapper-gen { padding: 10px 2px}
     .nav-container { 
         position: absolute;
-        z-index: 98;
+        z-index: 96;
         left: -250px;
     }
     .nav-container.menu-active{ 

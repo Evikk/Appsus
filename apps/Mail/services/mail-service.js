@@ -87,7 +87,7 @@ function deleteMail(mailId) {
 function toggleStarMail(mail) {
     mail.isStarred = !mail.isStarred
     // _saveMailsToStorage();
-    return Promise.resolve(`${mail.id} star change`)
+    return Promise.resolve()
 }
 
 function save(mail){
@@ -100,11 +100,11 @@ function save(mail){
 
 function markAsRead(mail) {
     mail.isRead = true
-    return Promise.resolve(`${mail.id} is now read`)
+    return Promise.resolve()
 }
 function toggleRead(mail) {
     mail.isRead = !mail.isRead
-    return Promise.resolve(`${mail.id} has changed read`)
+    return Promise.resolve()
 }
 
 function getBgColor(mail){
@@ -120,8 +120,8 @@ function _add(mail) {
     };
     mails = [mailToAdd, ...mails];
     // _saveMailsToStorage();
-    console.log(mails);
-    return Promise.resolve(`${mailToAdd.id} is saved!`); 
+    if (mailToAdd.isDraft) return Promise.resolve(`Message is saved to drafts!`)
+    return Promise.resolve(`Message is sent!`); 
 }
 
 function _update(mail) {
@@ -144,13 +144,13 @@ function _deleteFromDb(mailToDelete){
     })
     mails.splice(idx,1)
     // _saveMailsToStorage();
-    return Promise.resolve(`${mailToDelete.id} was deleted completely`)
+    return Promise.resolve(`Message was deleted completely!`)
 }
 
 function _moveMailToTrash(mail) {
     mail.isInbox = false
     mail.isTrash = true
     // _saveMailsToStorage();
-    return Promise.resolve(`${mail.id} has moved to trash`)
+    return Promise.resolve(`Message has moved to trash`)
 }
 
