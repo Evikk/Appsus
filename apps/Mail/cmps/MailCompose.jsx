@@ -1,5 +1,5 @@
 import { mailService } from "../services/mail-service.js";
-
+import { eventBusService } from "../../../services/eventBusService.js"
 export class MailCompose extends React.Component {
     state = {
         mail: {
@@ -47,7 +47,7 @@ export class MailCompose extends React.Component {
         else {
             const mailToSave = this.setType(type);
             mailService.save(mailToSave).then((msg) => {
-                console.log(msg);
+                eventBusService.emit('show-msg', msg)
                 this.setState({ mail: this.state.emptyState });
                 this.props.onCloseCompose();
             });

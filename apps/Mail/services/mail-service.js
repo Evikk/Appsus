@@ -5,6 +5,8 @@ export const mailService = {
     toggleStarMail,
     deleteMail,
     markAsRead,
+    toggleRead,
+    getBgColor,
     save
 };
 
@@ -22,6 +24,7 @@ function _createMails() {
                 senderAddress: "aviHakarish32@hotmail.com",
                 subject: "Hi",
                 body: `What's up?`,
+                bgColor: utilService.getRandomColor(),
                 isRead: false,
                 sentAt: new Date(2018, 11, 24, 10, 33, 30, 0),
                 isInbox: true,
@@ -35,6 +38,7 @@ function _createMails() {
                 senderAddress: "shira1987@walla.co.il",
                 subject: "Send me the last two files",
                 body: `hey, I saw you finished working on these files so send me the updated files, ok? thanks :)`,
+                bgColor: utilService.getRandomColor(),
                 isRead: true,
                 sentAt: new Date(2014, 7, 3, 16, 50, 40, 0),
                 isInbox: true,
@@ -48,6 +52,7 @@ function _createMails() {
                 senderAddress: "d_schrute@dundermifflin.com",
                 subject: "Memo #1x6G_09",
                 body: `Note that casual friday tradition is no longer relevant! please show with formal suiting`,
+                bgColor: utilService.getRandomColor(),
                 isRead: false,
                 sentAt: new Date(),
                 isInbox: true,
@@ -82,7 +87,7 @@ function deleteMail(mailId) {
 function toggleStarMail(mail) {
     mail.isStarred = !mail.isStarred
     // _saveMailsToStorage();
-    return Promise.resolve(`${mail.id} star change`)
+    return Promise.resolve()
 }
 
 function save(mail){
@@ -95,19 +100,28 @@ function save(mail){
 
 function markAsRead(mail) {
     mail.isRead = true
-    return Promise.resolve(`${mail.id} is now read`)
+    return Promise.resolve()
+}
+function toggleRead(mail) {
+    mail.isRead = !mail.isRead
+    return Promise.resolve()
+}
+
+function getBgColor(mail){
+    return mail.bgColor
 }
 
 function _add(mail) {
     const mailToAdd = {
         id: utilService.makeId(),
         sentAt: new Date(),
+        bgColor: utilService.getRandomColor(),
         ...mail
     };
     mails = [mailToAdd, ...mails];
     // _saveMailsToStorage();
-    console.log(mails);
-    return Promise.resolve(`${mailToAdd.id} is saved!`); 
+    if (mailToAdd.isDraft) return Promise.resolve(`Message is saved to drafts!`)
+    return Promise.resolve(`Message is sent!`); 
 }
 
 function _update(mail) {
@@ -130,13 +144,13 @@ function _deleteFromDb(mailToDelete){
     })
     mails.splice(idx,1)
     // _saveMailsToStorage();
-    return Promise.resolve(`${mailToDelete.id} was deleted completely`)
+    return Promise.resolve(`Message was deleted completely!`)
 }
 
 function _moveMailToTrash(mail) {
     mail.isInbox = false
     mail.isTrash = true
     // _saveMailsToStorage();
-    return Promise.resolve(`${mail.id} has moved to trash`)
+    return Promise.resolve(`Message has moved to trash`)
 }
 

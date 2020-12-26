@@ -1,4 +1,5 @@
 import { mailService } from "../services/mail-service.js";
+const { Link } = ReactRouterDOM;
 
 export class MailDetails extends React.Component {
     state = {
@@ -9,19 +10,15 @@ export class MailDetails extends React.Component {
         const { mailId } = this.props.match.params;
         mailService.getById(mailId).then(mail =>{
             this.setState({ mail })
-            
-
         })
     };
 
+    getStarred = () => {
+        return this.state.mail.isStarred ? 'starred' : ''
+    }
+
     goToInbox = () => {
         this.props.history.push("/mail")
-    }
-    onDeleteMail = () => {
-        mailService.deleteMail(this.state.mail.id).then(msg => {
-            console.log(msg)
-            this.goToInbox()
-        })
     }
 
     render() {
@@ -31,7 +28,14 @@ export class MailDetails extends React.Component {
             <section className="main-mail-container">
                 <div className="mail-nav">
                     <i className="fa fa-arrow-left mail-menu-btn md" onClick={this.goToInbox}></i>
-                    <i className="fa fa-trash-o mail-menu-btn md" onClick={this.onDeleteMail}></i>
+                    <div className="mail-nav-right">
+                        <i className={`fa fa-star ${this.getStarred()} mail-menu-btn md`} onClick={()=>this.props.onStarMail(mail.id)}></i>
+                        <i className="fa fa-trash-o mail-menu-btn md" onClick={()=>{
+                            this.props.onRemoveMail(mail.id)
+                            this.goToInbox()
+                            }}></i>
+                        <Link to={`/keep/mail?&mail=${mail.body}`}><i className="fa fa-external-link mail-menu-btn md"></i></Link>
+                    </div>
                 </div>
                 <div className="mail-details-container">
                     <div className="mail-subject">

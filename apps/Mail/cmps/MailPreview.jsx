@@ -1,9 +1,10 @@
 const { Link } = ReactRouterDOM;
 import {utilService} from '../../../services/utilService.js'
+import { mailService } from '../services/mail-service.js';
 
-export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openInCompose }) {
+export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openInCompose, onToggleReadMail }) {
     function getReadStatus() {
-        return mail.isRead ? "" : "unread";
+        return mail.isRead ? "" : "-open";
     }
     function getStarredStatus() {
         return mail.isStarred ? "starred" : "";
@@ -13,17 +14,26 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openIn
             new Date().toLocaleDateString() === mail.sentAt.toLocaleDateString()
         )
             return mail.sentAt.toLocaleTimeString().replace(/:\d+ /, " ");
-        return mail.sentAt.toLocaleDateString();
+        var str = mail.sentAt.toLocaleDateString()
+        return str.substring(0,str.length-2)
     }
 
     return (
-        <div className="mail-preview-container">
-            <i
-                className="fa fa-trash-o md to-trash"
-                onClick={() => {
-                    onRemoveMail(mail.id);
-                }}
-            ></i>
+        <div className={`mail-preview-container not${getReadStatus()}`}>
+            <div className={`float-icons not${getReadStatus()}`}>
+                <i
+                    className="fa fa-trash-o md"
+                    onClick={() => {
+                        onRemoveMail(mail.id);
+                    }}
+                ></i>
+                <i
+                    className={`fa fa-envelope${getReadStatus()} md`}
+                    onClick={() => {
+                        onToggleReadMail(mail.id);
+                    }}
+                ></i>
+            </div>
             {!mail.isTrash && (
                 <i
                     className={`fa fa-star mail-icon md ${getStarredStatus()}`}
@@ -39,7 +49,7 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openIn
                 else openInCompose(mail)
                 }} className={`mail-preview-details ${getReadStatus()}`}>
                     <div className="preview-sender">
-                        <span className="sender-icon">
+                        <span className="sender-icon" style={{backgroundColor: `${mailService.getBgColor(mail)}`}}>
                             {utilService.getInitials(mail.sender)}
                         </span>
                         <span>
