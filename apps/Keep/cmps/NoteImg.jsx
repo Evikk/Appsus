@@ -8,7 +8,7 @@ export function NoteImg({ note ,onEdit}) {
             <i className="fa fa-image"></i>
             {note.info.label && <h5 className="note-label">{note.info.label}</h5>}
             <div className="img-container">
-            <img src={note.info.url}/>
+            <img src={note.info.value}/>
             </div>
             <OptionsBar note={note} onEdit={onEdit}/>
         </div>

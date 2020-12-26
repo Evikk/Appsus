@@ -105,7 +105,7 @@
     
     .todos-modal.open-modal {
         transform: translateY(0px);
-        max-height: unset;
+        /* max-height: unset; */
         opacity: 1;
         visibility: visible;
     }

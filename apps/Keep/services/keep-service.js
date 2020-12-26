@@ -28,22 +28,40 @@ function query() {
     return Promise.resolve(gNotes)
 }
 
-// function editNote(noteToUpdate, note) {
-//     console.log(noteToUpdate);
-//     if (note.label) noteToUpdate.info.label = note.label
-//     if (note.type === 'txt') noteToUpdate.info.txt = note.inputValue
-//     if (note.type === 'video') noteToUpdate.info.src = note.inputValue
-//     if (note.type === 'img') noteToUpdate.info.url = note.inputValue
-//     if (note.type === 'todos') noteToUpdate.info.todos = note.inputValue
-//     storageService.saveToStorage(STORAGE_KEY, gNotes)
-// }
+
+function handleTypeChanged(noteToUpdate, updatedDetails, idx) {
+    noteToUpdate.type = updatedDetails.type
+    noteToUpdate.info.value = updatedDetails.inputValue
+    if (updatedDetails.label) noteToUpdate.info.label = updatedDetails.label
+    gNotes.splice(idx, 1, noteToUpdate)
+    storageService.saveToStorage(STORAGE_KEY, gNotes)
+    return Promise.resolve()
+}
+
+function editNoteContext(idx, details) {
+    var noteToUpdate = JSON.stringify(gNotes[idx])
+    noteToUpdate = JSON.parse(noteToUpdate)
+
+    if (details.inputValue === noteToUpdate.info.value) return Promise.resolve()
+
+    if (details.type !== noteToUpdate.type) {
+        return handleTypeChanged(noteToUpdate, details, idx)
+
+    } else {
+        noteToUpdate.info.value = details.inputValue
+        gNotes.splice(idx, 1, noteToUpdate)
+        storageService.saveToStorage(STORAGE_KEY, gNotes)
+        return Promise.resolve()
+    }
+}
 
 function addNote(note) {
-    // if (note.id) {
-    //     var noteToUpdate = gNotes.find(note => note.id === note.id)
-    //     editNote(noteToUpdate, note)
-    //     return
-    // }
+    console.log(note);
+    if (note.id) {
+        var noteToUpdateIdx = gNotes.findIndex(not => not.id === note.id)
+        return editNoteContext(noteToUpdateIdx, note)
+
+    }
     var newNote = {
 
         id: utilService.makeId(),
@@ -60,45 +78,54 @@ function addNote(note) {
         }
     }
 
+    return updateInfo(newNote, note)
+}
+
+
+function updateInfo(newNote, note) {
+
     switch (newNote.type) {
         case 'txt':
             newNote.info = {
                 label: note.label,
-                txt: note.inputValue
+                value: note.inputValue
             }
             break;
         case 'img':
             newNote.info = {
                 label: note.label,
-                url: note.inputValue,
+                value: note.inputValue,
             }
             break;
 
         case 'video':
             newNote.info = {
                 label: note.label,
-                src: note.inputValue
+                value: note.inputValue
             }
             break;
         case 'todos':
             newNote.info = {
                 label: note.label,
-                todos: note.inputValue
+                value: note.inputValue
             }
             break;
+
     }
     gNotes.unshift(newNote)
     storageService.saveToStorage(STORAGE_KEY, gNotes)
     return Promise.resolve()
-
 }
 
+
 function deleteNote(noteId) {
+    console.log(noteId);
     findNoteIdxById(noteId).then(noteIdx => {
         gNotes.splice(noteIdx, 1)
         storageService.saveToStorage(STORAGE_KEY, gNotes)
     })
 }
+
 
 function cloneNote(noteId) {
     findNoteIdxById(noteId).then(noteIdx => {
@@ -113,7 +140,7 @@ function cloneNote(noteId) {
 function setTodoMark(lineToMark) {
     console.log(lineToMark);
     const { note, idx } = lineToMark
-    note.info.todos[idx].isDone = !note.info.todos[idx].isDone
+    note.info.value[idx].isDone = !note.info.value[idx].isDone
     storageService.saveToStorage(STORAGE_KEY, gNotes)
     return Promise.resolve()
 }
@@ -153,7 +180,7 @@ function demoNotes() {
             updatedAt: Date.now(),
             info: {
                 label: '',
-                txt: 'Fullstack!'
+                value: 'Fullstack!'
             },
             style: {
                 backgroundColor: 'transpert',
@@ -170,7 +197,7 @@ function demoNotes() {
             updatedAt: Date.now(),
             info: {
                 label: '',
-                url: 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
+                value: 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
                 title: 'Me playing Mi'
             },
             style: {

@@ -2,7 +2,7 @@ import { NoteCreate } from "../cmps/NoteCreate.jsx"
 import { NoteEdit } from "../cmps/NoteEdit.jsx"
 import { NoteList } from "../cmps/NoteList.jsx"
 import { keepService } from '../services/keep-service.js'
-import {eventBusService} from '../../../services/eventBusService.js'
+import { eventBusService } from '../../../services/eventBusService.js'
 
 
 export class KeepApp extends React.Component {
@@ -20,6 +20,7 @@ export class KeepApp extends React.Component {
             keepService.setTodoMark(lineToMark)
             this.loadNotes()
         })
+       
     }
     componentWillUnmount() {
         this.unsubscribe();
@@ -27,7 +28,7 @@ export class KeepApp extends React.Component {
 
 
     loadNotes = () => {
-        let notesCopy = this.state.notes
+        let notesCopy = { ...this.state.notes }
         keepService.query().then(notes => {
             notesCopy = notes
             this.setState({ notes: notesCopy })
@@ -36,22 +37,22 @@ export class KeepApp extends React.Component {
 
 
     onAddNote = (noteToAdd) => {
+        console.log(noteToAdd);
 
-        keepService.addNote(noteToAdd)
-        this.loadNotes()
-
+        keepService.addNote(noteToAdd).then(() => {
+            this.loadNotes()
+        })
     }
     onAddTodos = (todosToAdd) => {
         var todos = {
-            inputValue:todosToAdd.todos,
-            type:'todos',
-            label:todosToAdd.label,
-            id:(todosToAdd.id)?todosToAdd.id:''
+            inputValue: todosToAdd.todosLines,
+            type: 'todos',
+            label: todosToAdd.label,
+            id: (todosToAdd.id) ? todosToAdd.id : ''
         }
-        keepService.addNote(todos).then(()=>{
+        keepService.addNote(todos).then(() => {
             this.loadNotes()
         })
-
     }
 
     onEdit = (note, action) => {
@@ -61,11 +62,13 @@ export class KeepApp extends React.Component {
         this.setState({ edit: editCopy })
     }
 
-    setChanges = () => {
-        const editCopy = { ...this.state.edit }
-        editCopy.note = null
-        this.setState({ edit: editCopy })
+    setChanges = (isModalOpen) => {
         this.loadNotes()
+        if (!isModalOpen) {
+            const editCopy = { ...this.state.edit }
+            editCopy.note = null
+            this.setState({ edit: editCopy })
+        }
     }
 
     render() {
@@ -73,12 +76,14 @@ export class KeepApp extends React.Component {
         const pinnedNotes = this.state.notes.filter(note => note.isPinned)
         const notes = this.state.notes.filter(note => !note.isPinned)
         return (
+            
             <section className="keep-app">
-                <NoteCreate onAddNote={this.onAddNote} onAddTodos={this.onAddTodos}/>
-                <NoteList notes={pinnedNotes} onEdit={this.onEdit}/>
-                <hr/>
+                   <section className="closeEditModal"></section>
+                <NoteCreate onAddNote={this.onAddNote} onAddTodos={this.onAddTodos} />
+                <NoteList notes={pinnedNotes} onEdit={this.onEdit} />
+                <hr />
                 <NoteList notes={notes} onEdit={this.onEdit} />
-                {this.state.edit.note && <NoteEdit edit={this.state.edit} setChanges={this.setChanges} onEdit={this.onEdit} onAddNote={this.onAddNote}onAddTodos={this.onAddTodos} />}
+                {this.state.edit.note && <NoteEdit edit={this.state.edit} setChanges={this.setChanges} onEdit={this.onEdit} onAddNote={this.onAddNote} onAddTodos={this.onAddTodos} />}
             </section>
         )
     }

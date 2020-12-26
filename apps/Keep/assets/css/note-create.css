@@ -2,6 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: blanchedalmond; */
+    padding: 2em;
+}
+
+.label {
+    /* background-color: transparent; */
+    border: none;
+    padding: 0.5em;
 }
 
 .notes-input textarea {
@@ -15,9 +23,7 @@
     border-radius: 8px;
 }
 
-.fas {
-    cursor: pointer;
-}
+.fa {}
 
 .icons * {
     margin-inline-end: 0.8em;

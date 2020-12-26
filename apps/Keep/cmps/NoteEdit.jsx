@@ -13,45 +13,51 @@ export class NoteEdit extends React.Component {
 
     componentDidMount() {
         const { note, action } = this.props.edit
-        this.setEdit(note, action)
+        this.setState({ note: note })
+        if (action === 'openedit') this.toggleEditModal()
+        else this.setEdit(note, action)
+        // this.unsubscribe = eventBusService.on('openEditModal', ()=>{
+        //     this.toggleEditModal()
+        // })
+        
     }
     componentDidUpdate(prevProps, prevState) {
-        // if(prevState.openEditModal)
+        if (!this.state.openEditModal) this.props.setChanges()
     }
 
-
-
+    toggleEditModal = () => {
+        this.setState({ openEditModal: !this.state.openEditModal })
+    }
 
     setEdit = (note, action) => {
-        if (action === 'openedit') this.setState({ openEditModal: !this.state.openEditModal, note: note });
-        else {
-            keepService.updateNote(note, action).then(() => {
-                this.props.setChanges()
-            })
-        }
-
+        keepService.updateNote(note, action).then(() => {
+            var keepOpen = (action === 'delete') ? false : true
+            this.props.setChanges(keepOpen)
+        })
     }
+
 
     render() {
         const { note, openEditModal } = this.state
+        console.log(note);
         if (!note) return <div>Loading..</div>
-        const{onAddNote,onAddTodos}=this.props
+        const openModalClass = openEditModal ? 'openEditModal' : ''
+        const { onAddNote, onAddTodos } = this.props
         return (
-
-            openEditModal && <section className="edit-modal" style={{ backgroundColor: 'whitesmoke' }}>
+            <section className={`edit-modal ${openModalClass}`} style={{ backgroundColor: note.style.backgroundColor }}>
+                <button className="close-btn" onClick={this.toggleEditModal}>X</button>
                 {note.info.label && <h5 className="note-label">{note.info.label}</h5>}
                 <div className="details">
-                    {note.info.txt && <p>{note.info.txt}</p>}
-                    {note.info.url && <img src={note.info.url} />}
-                    {note.info.src && <iframe src={note.info.src} width="270px" height="185px" allowFullScreen></iframe>}
-                    {note.info.todos && note.info.todos.map((todo, idx) => {
+                    {note.type === 'txt' && <p>{note.info.value}</p>}
+                    {note.type === 'img' && <img src={note.info.value} />}
+                    {note.type === 'video' && <iframe src={note.info.value} width="270px" height="185px" allowFullScreen></iframe>}
+                    {note.type === 'todos' && note.info.value.map((todo, idx) => {
                         return <li onClick={() => {
                             eventBusService.emit('markTodo', { note, idx })
                         }} className={todo.isDone ? 'mark' : ''} key={idx}>{todo.txt}</li>
                     })}</div>
                 <OptionsBar onEdit={this.setEdit} note={note} />
-                <NoteCreate onAddNote={onAddNote} onAddTodos={onAddTodos} note={note}/>
-
+                <NoteCreate onAddNote={onAddNote} onAddTodos={onAddTodos} note={note} closeModal={this.toggleEditModal} />
             </section>
         )
 
