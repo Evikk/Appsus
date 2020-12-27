@@ -44,7 +44,7 @@ main {
 
 .search-container {
     width: 100%;
-    background-color: #9bcaf2;
+    background-color: #b6d6f2;
     height: 50px;
     display: flex;
     align-items: center;
@@ -142,6 +142,7 @@ select {
     display: none;
     min-width: 1.9em;
     text-align: center;
+    color: whitesmoke;
 }
 
 .preview-main,
@@ -263,11 +264,12 @@ select {
 .nav-container {
     width: 250px;
     height: 100%;
-    background-color: #9bcaf2;
+    background-color: #b6d6f2;
     display: flex;
     align-items: center;
     flex-direction: column;
     padding-right: 13px;
+    transition: all .3s;
 }
 
 .nav-btn-container {
@@ -293,7 +295,7 @@ select {
 }
 
 .nav-btn-container.active-btn {
-    background-color: rgb(211, 202, 202);
+    background-color: rgb(228, 224, 224);
 }
 
 .nav-btn-container:hover {

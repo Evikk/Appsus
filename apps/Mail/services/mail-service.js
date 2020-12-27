@@ -18,36 +18,44 @@ window.db = mails
 
 function _createMails() {
     if (!mails || !mails.length) {
+<<<<<<< HEAD
         mails = [{
                 id: '123',
                 sender: "Avi",
                 senderAddress: "aviHakarish32@hotmail.com",
+=======
+        mails = [
+            {
+                id: utilService.makeId(),
+                sender: "Aviv Drori",
+                senderAddress: "avivHakarish32@hotmail.com",
+>>>>>>> 8060497ddc072994351e9932b7a74dff75bcbed1
                 subject: "Hi",
                 body: `What's up?`,
                 bgColor: utilService.getRandomColor(),
                 isRead: false,
-                sentAt: new Date(2018, 11, 24, 10, 33, 30, 0),
+                sentAt: new Date(2020, 11, 24, 10, 33, 30, 0),
                 isInbox: true,
                 isTrash: false,
                 isStarred: false,
                 isDraft: false
             },
             {
-                id: '456',
-                sender: "Shira",
+                id: utilService.makeId(),
+                sender: "Shira Cohen",
                 senderAddress: "shira1987@walla.co.il",
                 subject: "Send me the last two files",
                 body: `hey, I saw you finished working on these files so send me the updated files, ok? thanks :)`,
                 bgColor: utilService.getRandomColor(),
                 isRead: true,
-                sentAt: new Date(2014, 7, 3, 16, 50, 40, 0),
+                sentAt: new Date(2020, 7, 3, 16, 50, 40, 0),
                 isInbox: true,
                 isTrash: false,
                 isStarred: false,
                 isDraft: false
             },
             {
-                id: '789',
+                id: utilService.makeId(),
                 sender: "Dwight Schrute",
                 senderAddress: "d_schrute@dundermifflin.com",
                 subject: "Memo #1x6G_09",
@@ -59,6 +67,63 @@ function _createMails() {
                 isTrash: false,
                 isStarred: false,
                 isDraft: false
+            },
+            {
+                id: utilService.makeId(),
+                sender: "Node JS",
+                senderAddress: "node@jsexperts.com",
+                subject: "Stop Using Demo Data Like a Kid",
+                body: `Learn some Node JS and interact with real servers and data!  visit us at: http://www.nodejs.org`,
+                bgColor: utilService.getRandomColor(),
+                isRead: false,
+                sentAt: new Date(2020, 2, 12, 11, 5, 44, 0),
+                isInbox: true,
+                isTrash: false,
+                isStarred: true,
+                isDraft: false
+            },
+            {
+                id: utilService.makeId(),
+                sender: "Uli",
+                senderAddress: "ulivonschwarze234@gmail.com",
+                subject: "We Want The Money, Lebowski!",
+                body: `Give us the money or we'll cut off your johnson!!!!`,
+                bgColor: utilService.getRandomColor(),
+                isRead: true,
+                sentAt: new Date(2020, 4, 17, 14, 33, 12, 0),
+                isInbox: false,
+                isTrash: true,
+                isStarred: false,
+                isDraft: false
+            },
+            {
+                id: utilService.makeId(),
+                sender: "Mom",
+                senderAddress: "imayeshrakahat@mama.com",
+                subject: "Where are you?",
+                body: `You don't return my calls anymore! can you tell me what about the family dinner tommorow?`,
+                bgColor: utilService.getRandomColor(),
+                isRead: true,
+                sentAt: new Date(2020, 11, 14, 9, 15, 50, 0),
+                isInbox: false,
+                isTrash: true,
+                isStarred: false,
+                isDraft: false
+            },
+            {
+                id: utilService.makeId(),
+                sender: "Me",
+                senderAddress: "evyatarm@gmail.com",
+                sendTo: 'Bruno Mars',
+                subject: "Not gonna show up for your birthday",
+                body: `sorry, had no time lately because of the bootcamp... :(`,
+                bgColor: utilService.getRandomColor(),
+                isRead: true,
+                sentAt: new Date(2020, 11, 14, 9, 15, 50, 0),
+                isInbox: false,
+                isTrash: false,
+                isStarred: false,
+                isDraft: true
             },
         ];
     }
