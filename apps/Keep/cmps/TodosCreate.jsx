@@ -55,7 +55,7 @@ export class TodosCreate extends React.Component {
 
     render() {
         return (
-          this.props.toggleStatus&&<div className="todos-modal open-modal" >
+          this.props.toggleStatus&&<div className="todos-modal open-modal swing-in-top-fwd" >
                 <button className="close-btn" onClick={() => {
                     this.clearTodos()
                     this.props.toggleTodosModal()

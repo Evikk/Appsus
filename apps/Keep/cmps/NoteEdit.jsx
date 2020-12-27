@@ -63,7 +63,7 @@ export class NoteEdit extends React.Component {
         const openModalClass = openEditModal ? 'openEditModal' : ''
         const { onAddNote, onAddTodos } = this.props
         return (
-            <section className="edit-modal tilt-in-fwd-tr"  style={{backgroundColor:note.style.backgroundColor,fontFamily:note.style.fontFamily}}>
+            <section className="edit-modal swing-in-top-fwd"  style={{backgroundColor:note.style.backgroundColor,fontFamily:note.style.fontFamily}}>
                 <button className="close-editModal-btn" onClick={this.toggleEditModal}><i className="fa fa-times"></i></button>
                 <div className={`details ${note.type === 'todos' ? 'todos-edit' : ''}`}>
                 {note.info.label && <h5 style={{fontSize:note.style.fontSize+'px'}} className="note-label">{note.info.label}</h5>}
