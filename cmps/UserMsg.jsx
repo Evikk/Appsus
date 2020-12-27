@@ -23,7 +23,7 @@ export class UserMsg extends React.Component {
     render() {
         return (
             this.state.isShown && <div
-                className={`notification ${this.state.isShown ? "slide-in-right" : "slide-out-right"
+                className={`notification ${this.state.isShown ? 'slide-in-right' : 'slide-out-right'
                     }`}
             >
                 <i className="fa fa-times msg-close-btn" onClick={() => this.setState({ isShown: false })}></i>

@@ -18,7 +18,6 @@ export class BookAdd extends React.Component {
             googleService
                 .getGoogleBooks(this.state.keyword)
                 .then((res) => {
-                    console.log(res.items);
                     this.setState({ results: res.items });
                 })
                 .catch((err) => console.log(err));

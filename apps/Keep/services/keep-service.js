@@ -6,7 +6,8 @@ export const keepService = {
     deleteNote,
     cloneNote,
     updateNote,
-    setTodoMark
+    setTodoMark,
+    setNoteStyle
 }
 
 window.keep = keepService
@@ -43,6 +44,7 @@ function editNoteContext(idx, details) {
     noteToUpdate = JSON.parse(noteToUpdate)
 
     if (details.inputValue === noteToUpdate.info.value) return Promise.resolve()
+    noteToUpdate.updatedAt = Date.now()
 
     if (details.type !== noteToUpdate.type) {
         return handleTypeChanged(noteToUpdate, details, idx)
@@ -56,7 +58,6 @@ function editNoteContext(idx, details) {
 }
 
 function addNote(note) {
-    console.log(note);
     if (note.id) {
         var noteToUpdateIdx = gNotes.findIndex(not => not.id === note.id)
         return editNoteContext(noteToUpdateIdx, note)
@@ -68,7 +69,7 @@ function addNote(note) {
         type: note.type,
         isPinned: false,
         createdAt: Date.now(),
-        updatedAt: Date.now(),
+        updatedAt: null,
         info: {},
         style: {
             backgroundColor: 'lightblue',
@@ -119,7 +120,6 @@ function updateInfo(newNote, note) {
 
 
 function deleteNote(noteId) {
-    console.log(noteId);
     findNoteIdxById(noteId).then(noteIdx => {
         gNotes.splice(noteIdx, 1)
         storageService.saveToStorage(STORAGE_KEY, gNotes)
@@ -137,10 +137,18 @@ function cloneNote(noteId) {
     })
 }
 
+function setNoteStyle(style, note) {
+    note.style.fontFamily = style.fontFamily
+    note.style.fontSize = style.fontSize
+    storageService.saveToStorage(STORAGE_KEY, gNotes)
+    return Promise.resolve()
+}
+
+
 function setTodoMark(lineToMark) {
-    console.log(lineToMark);
     const { note, idx } = lineToMark
     note.info.value[idx].isDone = !note.info.value[idx].isDone
+    note.info.value[idx].doneAt = (note.info.value[idx].isDone) ? Date.now() : null
     storageService.saveToStorage(STORAGE_KEY, gNotes)
     return Promise.resolve()
 }

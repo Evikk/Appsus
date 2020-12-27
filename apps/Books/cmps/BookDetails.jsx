@@ -50,7 +50,7 @@ export class BookDetails extends React.Component {
 
     render() {
         if (!this.state.book) return <div>Loading...</div>;
-        // console.log("this.state.book", this.state.book);
+
 
         return (
             <div className="modal-content">

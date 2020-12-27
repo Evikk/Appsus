@@ -15,7 +15,6 @@ export class NoteCreate extends React.Component {
     }
     componentDidMount() {
         if (this.props.note) {
-            console.log('hiiiii');
             this.isEdit()
         }
     }
@@ -26,11 +25,13 @@ export class NoteCreate extends React.Component {
         currNoteCopy.id = note.id
         currNoteCopy.type = note.type
         if (note.info.label) currNoteCopy.label = note.info.label
-        if (note.type !== 'todos')currNoteCopy.inputValue = note.info.value
+        if (note.type !== 'todos') currNoteCopy.inputValue = note.info.value
         this.setState({ currNote: currNoteCopy })
+        if (note.type === 'todos')this.setState({openTodosModal:!this.state.openTodosModal})
+
     }
 
-   
+
 
 
     setNoteType = (type) => {
@@ -71,7 +72,7 @@ export class NoteCreate extends React.Component {
     onAddNote = () => {
         const { type, inputValue } = this.state.currNote
         if (!inputValue) return
-        if ((type === 'video' || type === 'img') && !inputValue.includes('/')) {
+        if ((type === 'video' || type === 'img') && !inputValue.includes('.com')) {
             const currNoteCopy = { ...this.state.currNote }
             currNoteCopy.inputValue = 'PLEASE ENTER VALID URL OR Change to TEXT NOTE'
             this.setState({ currNote: currNoteCopy })
@@ -80,9 +81,9 @@ export class NoteCreate extends React.Component {
         this.props.onAddNote(this.state.currNote)
         this.clearInputs()
         if (this.props.closeModal) this.props.closeModal()
-        
+
     }
-    
+
     clearInputs = () => {
         const currNoteCopy = { ...this.state.currNote }
         currNoteCopy.inputValue = ''
@@ -90,7 +91,7 @@ export class NoteCreate extends React.Component {
         currNoteCopy.label = ''
         this.setState({ currNote: currNoteCopy, placeholder: 'What\'s on your mind..' })
     }
-    
+
     onImgInput = (ev) => {
         this.loadImageFromInput(ev)
     }
@@ -100,38 +101,37 @@ export class NoteCreate extends React.Component {
             const currNoteCopy = { ...this.state.currNote }
             currNoteCopy.inputValue = ev.target.result
             this.setState({ currNote: currNoteCopy, showFileInput: !this.state.showFileInput })
-           this.onAddNote()
-            
+            this.onAddNote()
+
         }
         reader.readAsDataURL(ev.target.files[0]);
     }
-    
+
     toggleTodosModal = () => {
         this.setState({ openTodosModal: !this.state.openTodosModal })
         this.clearInputs()
     }
-    
+
     render() {
         var { type, id } = this.state.currNote
         if (id && type === 'todos') {
-            console.log(id, type);
             var todoNoteId = id
         }
         return (
             <section className="note-create">
-                <TodosCreate note={todoNoteId ? todoNoteId : this.props.note} toggleTodosModal={this.toggleTodosModal} toggleStatus={this.state.openTodosModal} onAddTodos={this.props.onAddTodos} closeModal={this.props.closeModal} />
+              <TodosCreate note={todoNoteId ? todoNoteId : this.props.note} toggleTodosModal={this.toggleTodosModal} toggleStatus={this.state.openTodosModal} onAddTodos={this.props.onAddTodos} closeModal={this.props.closeModal} />
                 <div className="notes-input">
                     <input className="label" type="text" placeholder="Label your note.." onChange={this.handleChange} name="label" value={this.state.currNote.label} />
                     <textarea name="inputValue" cols="30" rows="2" value={this.state.currNote.inputValue} placeholder={this.state.placeholder} onChange={this.handleChange}></textarea>
                     {this.state.showFileInput && <input className="file-input" type="file" name="image" onChange={this.onImgInput} />}
-                    {/* <label><i className='fas fa-palette'>{this.state.showColors&&<input type="color"/>}</i></label> */}
                 </div>
                 <div className="icons">
                     <i className="fa fa-font" onClick={() => this.setNoteType('txt')}></i>
                     <i className="fa fa-image" onClick={() => this.setNoteType('img')}></i>
                     <i className="fa fa-youtube" onClick={() => this.setNoteType('video')}></i>
                     <i className="fa fa-list-ul" onClick={() => this.setNoteType('todos')}></i>
-                    <i className="fa fa-plus" onClick={() => this.onAddNote()}></i>
+                    {!this.props.closeModal && <i className="fa fa-plus" onClick={() => this.onAddNote()}></i>}
+                    {this.props.closeModal && <i className="fa fa-save" onClick={() => this.onAddNote()}></i>}
                 </div>
             </section>
         )
