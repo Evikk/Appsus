@@ -86,3 +86,4 @@
 .slide-out-right {
     animation: slide-out-right 0.5s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
 }
+@media (max-width: 511px) {.notification{ width: 100%;}}
