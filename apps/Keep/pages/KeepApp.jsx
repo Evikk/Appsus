@@ -121,9 +121,13 @@ export class KeepApp extends React.Component {
             <section className="keep-app">
                 {this.state.closeModal && <section className="closeEditModal" onClick={()=>this.onCloseEditModal()}></section>}
                 <NoteCreate onAddNote={this.onAddNote} onAddTodos={this.onAddTodos} />
+            
                 <NoteFilter setFilter={this.setFilter} />
+                <div className="note-pin">
                 <NoteList notes={pinnedNotes} onEdit={this.onEdit} />
-                <hr />
+                <i className="fa fa-thumb-tack"></i>
+            
+                </div>
                 <NoteList notes={notes} onEdit={this.onEdit} />
                 {this.state.edit.note && <NoteEdit edit={this.state.edit}  setChanges={this.setChanges} onEdit={this.onEdit} onAddNote={this.onAddNote} onAddTodos={this.onAddTodos} />}
                 <UserMsg />

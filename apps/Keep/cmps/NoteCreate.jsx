@@ -101,7 +101,10 @@ export class NoteCreate extends React.Component {
             const currNoteCopy = { ...this.state.currNote }
             currNoteCopy.inputValue = ev.target.result
             this.setState({ currNote: currNoteCopy, showFileInput: !this.state.showFileInput })
-            this.onAddNote()
+            this.props.onAddNote(this.state.currNote)
+            this.clearInputs()
+            if (this.props.closeModal) this.props.closeModal()
+    
 
         }
         reader.readAsDataURL(ev.target.files[0]);

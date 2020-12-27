@@ -188,10 +188,10 @@ function demoNotes() {
             updatedAt: Date.now(),
             info: {
                 label: '',
-                value: 'Fullstack!'
+                value: 'Welcome To The Keeper!'
             },
             style: {
-                backgroundColor: 'lightblue',
+                backgroundColor: '#7fdbda',
                 color: 'black',
                 fontSize: 15,
                 fontFamily: ''
@@ -204,15 +204,14 @@ function demoNotes() {
             createdAt: Date.now(),
             updatedAt: Date.now(),
             info: {
-                label: '',
+                label: 'Views',
                 value: 'https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg',
-                title: 'Me playing Mi'
             },
             style: {
-                backgroundColor: 'lightblue',
+                backgroundColor: '"#fff48f',
                 color: 'black',
                 fontSize: 15,
-                fontFamily: ''
+                fontFamily: 'Impact'
             }
         },
         // {
@@ -224,10 +223,10 @@ function demoNotes() {
         //     createdAt: Date.now(),
         //     updatedAt: Date.now(),
         //     info: {
-        //         label: '',
+        //         label: 'My Tasks',
         //         todos: [
-        //             { txt: 'Do that', doneAt: null },
-        //             { txt: 'Do this', doneAt: null }
+        //             { txt: 'Hack The Pantagon', isDone: false, doneAt: Date.now() },
+        //             { txt: 'Sleep Well', isDone: false, doneAt: null }
         //         ]
         //     },
 
@@ -238,30 +237,93 @@ function demoNotes() {
         //         fontFamily: ''
         //     }
         // },
-        // {
+        {
+            id: utilService.makeId(),
+            type: 'video',
+            isPinned: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            info: {
+                label: 'surf',
+                value: 'https://www.youtube.com/embed/oLz5_THzLHc'
+            },
 
+            style: {
+                backgroundColor: 'whitesmoke',
+                color: 'black',
+                fontSize: 15,
+                fontFamily: ''
+            }
+        },
+        {
+            id: utilService.makeId(),
+            type: 'img',
+            isPinned: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            info: {
+                label: 'Views',
+                value: 'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8cGljfGVufDB8fDB8&ixlib=rb-1.2.1&w=1000&q=80',
+            },
+            style: {
+                backgroundColor: '"#fff48f',
+                color: 'black',
+                fontSize: 15,
+                fontFamily: 'Impact'
+            }
+        },
+        {
 
-        //     id: utilService.makeId(),
-        //     type: 'video',
-        //     isPinned: false,
-        //     createdAt: Date.now(),
-        //     updatedAt: Date.now(),
-        //     info: {
-        //         label: '',
-        //         videos: [{
-        //             title: '',
-        //             src: ''
-        //         }]
+            id: utilService.makeId(),
+            type: 'txt',
+            isPinned: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            info: {
+                label: '',
+                value: 'So Many Notes'
+            },
+            style: {
+                backgroundColor: '#7fdbda',
+                color: 'black',
+                fontSize: 15,
+                fontFamily: ''
+            }
+        },
+        {
+            id: utilService.makeId(),
+            type: 'video',
+            isPinned: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            info: {
+                label: 'Music',
+                value: 'https://www.youtube.com/embed/uHHOIRi2GqE'
+            },
 
-        //     },
-
-        //     style: {
-        //         backgroundColor: '#00d',
-        //         color: 'black',
-        //         fontSize: 15,
-        //         fontFamily: ''
-        //     }
-        // }
+            style: {
+                backgroundColor: '#f09ae9',
+                color: 'black',
+                fontSize: 15,
+                fontFamily: ''
+            }
+        }, {
+            id: utilService.makeId(),
+            type: 'img',
+            isPinned: false,
+            createdAt: Date.now(),
+            updatedAt: Date.now(),
+            info: {
+                label: '',
+                value: 'https://images1.calcalist.co.il/PicServer3/2017/04/24/720257/1LM.gif',
+            },
+            style: {
+                backgroundColor: '"#fff48f',
+                color: 'black',
+                fontSize: 15,
+                fontFamily: 'Impact'
+            }
+        },
     ]
     return notes
 }
