@@ -44,7 +44,7 @@ main {
 
 .search-container {
     width: 100%;
-    background-color: #b6d6f2;
+    background-color: #b8d8f194;
     height: 50px;
     display: flex;
     align-items: center;
@@ -264,7 +264,7 @@ select {
 .nav-container {
     width: 250px;
     height: 100%;
-    background-color: #b6d6f2;
+    background-color: #b8d8f194;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -295,12 +295,13 @@ select {
 }
 
 .nav-btn-container.active-btn {
-    background-color: rgb(228, 224, 224);
+    background-color: #bfd2e09f;
+    border: 1px solid #d3e4f16a;
 }
 
 .nav-btn-container:hover {
     cursor: pointer;
-    box-shadow: 1px 7px 14px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.5);
 }
 
 .nav-btn-container .btn-txt {
@@ -321,10 +322,11 @@ select {
     outline-style: none;
     border: 1px solid rgba(0, 0, 0, 0.30);
     padding: 5px 9px;
+    background-color: rgba(250, 255, 255, 0.829);
 }
 
 .compose-btn:hover {
-    box-shadow: 1px 7px 14px 1px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
 
@@ -353,8 +355,8 @@ select {
 .mail-compose .compose-header {
     padding-top: 0;
     padding-bottom: 0;
-    background-color: rgb(245, 237, 237);
-    color: #f4f4f4;
+    background-color: rgb(181, 197, 212);
+    color: #ebe7e7;
     border-radius: 8px 8px 0px 0px;
     color: rgba(0, 0, 0, 0.5);
 }
@@ -366,7 +368,7 @@ select {
 .compose-header button {
     border: none;
     background-color: transparent;
-    color: #cccbcb;
+    color: #201d1d;
     margin-right: 0.5rem;
     cursor: pointer;
     outline-style: none;
@@ -396,16 +398,24 @@ select {
 
 .compose-footer {
     padding: 0.5rem;
-    background-color: rgb(240, 229, 229);
+    background-color: rgb(181, 197, 212);
 }
 
 .compose-footer button {
     padding: 0.5rem 1rem;
     border-radius: 5px;
+    border: none;
+    background-color: rgba(255, 246, 246, 0.493);
+    box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.5);
     margin-inline-start: 1rem;
     color: black;
     cursor: pointer;
     font-size: 1.2rem;
+    transition: 0.2s;
+}
+
+.compose-footer button:hover {
+    transform: scale(1.02);
 }
 
 

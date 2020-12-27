@@ -18,18 +18,10 @@ window.db = mails
 
 function _createMails() {
     if (!mails || !mails.length) {
-<<<<<<< HEAD
         mails = [{
                 id: '123',
                 sender: "Avi",
                 senderAddress: "aviHakarish32@hotmail.com",
-=======
-        mails = [
-            {
-                id: utilService.makeId(),
-                sender: "Aviv Drori",
-                senderAddress: "avivHakarish32@hotmail.com",
->>>>>>> 8060497ddc072994351e9932b7a74dff75bcbed1
                 subject: "Hi",
                 body: `What's up?`,
                 bgColor: utilService.getRandomColor(),

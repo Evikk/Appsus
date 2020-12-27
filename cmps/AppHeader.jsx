@@ -12,7 +12,7 @@ export class AppHeader extends React.Component {
             <header className="app-header">
                 <div>
                     <NavLink className="logo" exact to="/">
-                        <img src="assets/img/logo.png" alt="" />
+                        <img src="assets/img/final.png" alt="" />
                     </NavLink>
                 </div>
                 <nav>
@@ -22,7 +22,7 @@ export class AppHeader extends React.Component {
                             this.setState({ isNavOpen: !this.state.isNavOpen })
                         }
                     ></i>
-                    {this.state.isNavOpen && <ul className="main-header-container">
+                    {this.state.isNavOpen && <ul className="main-header-container roll-in-right">
                         <li onClick={() => this.setState({ isNavOpen: false })}>
                             <NavLink activeClassName="nav-active" to="/mail">
                                 <i className="fa fa-envelope"></i>
