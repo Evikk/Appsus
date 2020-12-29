@@ -97,7 +97,9 @@ export class MailApp extends React.Component {
     onReadMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {
             mailService.markAsRead(mail).then(() => this.loadMails());
+           
         });
+        this.props.history.push(`/mail/${mailId}`)
     };
     onToggleReadMail = (mailId) => {
         mailService.getById(mailId).then((mail) => {

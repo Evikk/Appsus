@@ -44,7 +44,7 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openIn
             )}
             {mail.isTrash && <i className="fa fa-trash-o mail-icon md red"></i> }
             
-            <Link to={`/mail/${mail.id}`} onClick={() => {
+            <div onClick={() => {
                 if (!mail.isDraft) onReadMail(mail.id)
                 else openInCompose(mail)
                 }} className={`mail-preview-details ${getReadStatus()}`}>
@@ -70,7 +70,7 @@ export function MailPreview({ mail, onRemoveMail, onStarMail, onReadMail, openIn
                     <div className="preview-mail-sent">
                         <span>{getTime()}</span>
                     </div>
-            </Link>
+            </div>
             
         </div>
     );

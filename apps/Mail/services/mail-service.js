@@ -191,7 +191,7 @@ function _update(mail) {
     mailsCopy[mailIdx] = mailToUpdate;
     mails = mailsCopy;
     // _saveMailsToStorage();
-    return Promise.resolve(mailToUpdate);
+    return Promise.resolve(`mail is Updated`);
 }
 
 function _deleteFromDb(mailToDelete) {
