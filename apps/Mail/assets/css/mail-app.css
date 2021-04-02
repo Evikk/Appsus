@@ -120,12 +120,13 @@ select {
     width: 100%;
     display: flex;
     align-items: center;
-    background-color: whitesmoke;
+    background-color: rgb(238, 238, 238);
+    padding-right: 10px;
 }
 
 .mail-preview-details {
     display: grid;
-    grid-template-columns: 3fr 10fr 2fr;
+    grid-template-columns: 3fr 1fr 2fr;
     height: 60px;
     align-items: center;
     width: 100%;
@@ -133,15 +134,15 @@ select {
 }
 
 .sender-icon {
-    font-size: 30px;
-    padding: 10px;
+    font-size: 25px;
+    padding: 8px;
     border-radius: 50%;
     background-color: brown;
-    font-weight: bold;
+    font-weight: 700;
     display: none;
     min-width: 1.9em;
     text-align: center;
-    color: whitesmoke;
+    color:rgba(255, 255, 255, 0.959);
 }
 
 .preview-main,
@@ -150,19 +151,32 @@ select {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    
+    
 }
+
 
 .preview-mail-sent {
     /* flex: 0 0 150px; */
     text-align: right;
 }
 
+.preview-subject{
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .preview-body {
-    color: rgba(0, 0, 0, 0.5);
+    color: rgba(48, 48, 48, 0.753);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .-open {
-    font-weight: 900;
+    /* font-weight: 600; */
 }
 
 .mail-icon {
@@ -263,7 +277,7 @@ select {
 .nav-container {
     width: 250px;
     height: 100%;
-    background-color: #b8d8f194;
+    background-color: #D6E8F7;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -446,10 +460,14 @@ select {
     }
     .mail-preview-details {
         padding: 0;
-        grid-template-columns: 2fr 16fr 2fr;
+        grid-template-columns: 2fr 18fr 2fr;
     }
     .preview-mail-sent {
         font-size: 13px;
+    }
+
+    .preview-sender{
+        margin-left: 5px;
     }
     .preview-sender span:nth-child(2),
     .preview-main span:nth-child(2),

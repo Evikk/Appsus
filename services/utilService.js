@@ -16,6 +16,7 @@ function makeId(length = 8) {
     return txt;
 }
 
+
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -24,8 +25,8 @@ function getRandomInt(min, max) {
 
 function getInitials(name) {
     var splitName = name.split(' ')
-    if (splitName.length === 1 ) return splitName[0].charAt(0).toUpperCase()
-    return (splitName[0].charAt(0)+splitName[1].charAt(0)).toUpperCase()
+    if (splitName.length === 1) return splitName[0].charAt(0).toUpperCase()
+    return (splitName[0].charAt(0) + splitName[1].charAt(0)).toUpperCase()
 }
 
 function getRandomColor() {

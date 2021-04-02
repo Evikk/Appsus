@@ -84,10 +84,15 @@
 }
 
 .keep-app {
-    background-image: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm28-watercolor-kung-160_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=86c93120b7245a69efb986f12ca80ce6');
-    background-size: cover;
+  
     overflow: hidden;
+    background: url('https://img.rawpixel.com/s3fs-private/rawpixel_images/website_content/rm28-watercolor-kung-160_2.jpg?w=800&dpr=1&fit=default&crop=default&q=65&vib=3&con=3&usm=15&bg=F4F4F3&ixlib=js-2.2.1&s=86c93120b7245a69efb986f12ca80ce6')
+    no-repeat center center fixed;
     min-height: 90vh;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 

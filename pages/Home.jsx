@@ -19,7 +19,7 @@ export class Home extends React.Component {
                         className="home-hero-image"
                     />
                 </div>
-                <ul className="main-header-in-home roll-in-right">
+                {/* <ul className="main-header-in-home roll-in-right">
                         <li>
                             <NavLink activeClassName="nav-active" to="/mail">
                                 <i className="fa fa-envelope"></i>
@@ -38,7 +38,7 @@ export class Home extends React.Component {
                                 <h4>Book</h4>
                             </NavLink>
                         </li>
-                    </ul>
+                    </ul> */}
             </section>
         );
     }
